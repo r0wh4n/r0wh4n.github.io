@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark">
 <title>Rohan Pandey</title>
 <meta name="description" content="Rohan Pandey builds products end to end: frontend, backend, AI, DevOps, SRE and security. Open to founding and early-stage roles.">
 <meta property="og:type" content="website">
@@ -16,220 +16,302 @@
 <meta property="og:image:alt" content="Frontend to firewall. One engineer. Rohan Pandey.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://r0wh4n.github.io/">
-<meta name="theme-color" content="#F2F4F5" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0B0F14" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#06080C">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101720' stroke='%2397A3B2' stroke-width='1.5'/%3E%3Crect x='6' y='9' width='20' height='3' rx='1' fill='%233EC1CB'/%3E%3Crect x='9' y='15' width='14' height='3' rx='1' fill='%237197FF'/%3E%3Crect x='12' y='21' width='8' height='3' rx='1' fill='%23F06A5E'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,600..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-/* Layout: one request trace read top to bottom. The hero is a span waterfall; each span links to the proof for that layer. Left-aligned on a 72rem column. */
+/* Layout: a live observability console. Dark, one request trace as the spine; six layer hues run through every section. Deliberately single-theme. */
 :root {
-  --paper: #F2F4F5; --panel: #FFFFFF; --ink: #101720; --muted: #4F5A68; --rule: #D5DBE0; --wash: #E6EBEE;
-  /* one hue per layer, shared by the trace and the skills section */
-  --fe: #09737D; --sec: #C0392B; --ops: #9A5D08; --be: #2E59D0; --ai: #7743C6; --sre: #23794A;
+  --bg: #06080C; --panel: #0D1219; --panel-2: #111823; --line: #1A2330; --line-2: #293444;
+  --ink: #EAF0F6; --muted: #97A3B3;
+  --fe: #3EC1CB; --sec: #F06A5E; --ops: #E6A23C; --be: #7197FF; --ai: #B28CF3; --sre: #5DC981;
+  --grad: linear-gradient(90deg, var(--fe), var(--be), var(--ai), var(--sec), var(--ops), var(--fe));
   --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --col: 72rem; --gut: clamp(1rem, 4vw, 2.5rem);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #0B0F14; --panel: #121820; --ink: #E6EBF1; --muted: #9AA6B5; --rule: #26303C; --wash: #18212B;
-    --fe: #3EC1CB; --sec: #F06A5E; --ops: #E6A23C; --be: #7197FF; --ai: #B28CF3; --sre: #5DC981;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --paper: #0B0F14; --panel: #121820; --ink: #E6EBF1; --muted: #9AA6B5; --rule: #26303C; --wash: #18212B;
-  --fe: #3EC1CB; --sec: #F06A5E; --ops: #E6A23C; --be: #7197FF; --ai: #B28CF3; --sre: #5DC981;
+  --col: 78rem; --gut: clamp(1rem, 4vw, 2.5rem);
+  --ease: cubic-bezier(.2, .8, .2, 1);
   color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1.0625rem/1.6 var(--f-body); }
-a { color: inherit; text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); text-underline-offset: .2em; }
-a:hover { text-decoration-color: currentColor; }
-:focus-visible { outline: 2px solid var(--be); outline-offset: 3px; border-radius: 3px; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.6 var(--f-body); overflow-x: hidden; }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 64px 64px; opacity: .45; -webkit-mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 20%, transparent 75%); mask-image: radial-gradient(ellipse 90% 55% at 50% 0%, #000 20%, transparent 75%); }
+body::after { content: ""; position: fixed; inset: 0; z-index: 70; pointer-events: none; opacity: .05; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--be); outline-offset: 3px; border-radius: 4px; }
 h1, h2, h3, h4 { font-family: var(--f-display); text-wrap: balance; margin: 0; }
 p { margin: 0; text-wrap: pretty; }
 ul, ol { margin: 0; padding: 0; }
 img { max-width: 100%; height: auto; display: block; }
 [id] { scroll-margin-top: 5rem; }
 .wrap { max-width: var(--col); margin-inline: auto; padding-inline: var(--gut); }
-.label { font: 500 .75rem/1.4 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.ext { margin-left: .3em; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.skip { position: absolute; left: -999px; top: .5rem; z-index: 20; background: var(--ink); color: var(--paper); padding: .6rem 1rem; border-radius: 6px; }
+.skip { position: absolute; left: -999px; top: .5rem; z-index: 80; background: var(--ink); color: var(--bg); padding: .6rem 1rem; border-radius: 8px; }
 .skip:focus { left: 1rem; }
+.grad { background: var(--grad); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shift 8s linear infinite; }
+@keyframes shift { to { background-position: -200% 0; } }
 
-/* top bar */
-.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
-.bar .wrap { display: flex; align-items: center; gap: 1.5rem; padding-block: .6rem; }
-.brand { display: flex; align-items: center; gap: .6rem; min-height: 44px; font: 700 1rem/1 var(--f-display); font-stretch: 110%; text-decoration: none; }
-.brand svg { flex: none; }
-.nav { display: flex; gap: .4rem; margin-left: auto; font-size: .92rem; }
-.nav a { display: inline-flex; align-items: center; min-height: 44px; padding-inline: .5rem; text-decoration: none; color: var(--muted); }
-.nav a:hover { color: var(--ink); }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .7rem 1.1rem; border-radius: 6px; font: 500 .95rem/1 var(--f-body); text-decoration: none; border: 1px solid var(--rule); background: var(--panel); color: var(--ink); cursor: pointer; }
-.btn:hover { border-color: var(--muted); }
-.btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.btn.primary:hover { opacity: .88; }
-.btn.small { padding: .5rem .85rem; font-size: .88rem; }
+/* reveal on scroll (only once JS has run) */
+.js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .8s var(--ease); transition-delay: calc(var(--d, 0) * 90ms); }
+.js .reveal.in { opacity: 1; transform: none; }
+
+/* scroll progress + top bar */
+.progress { position: fixed; inset: 0 0 auto; height: 2px; z-index: 60; pointer-events: none; }
+.progress i { display: block; height: 100%; background: var(--grad); transform-origin: left; transform: scaleX(0); }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; border-bottom: 1px solid transparent; transition: background .3s, border-color .3s; }
+.bar.scrolled { background: color-mix(in srgb, var(--bg) 78%, transparent); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); border-color: var(--line); }
+.bar .wrap { display: flex; align-items: center; gap: 1.5rem; padding-block: .55rem; }
+.brand { display: flex; align-items: center; gap: .6rem; min-height: 44px; white-space: nowrap; font: 700 1rem/1 var(--f-display); font-stretch: 110%; }
+.nav { display: flex; gap: .2rem; margin-left: auto; font-size: .92rem; }
+.nav a { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding-inline: .7rem; color: var(--muted); transition: color .2s; }
+.nav a:hover, .nav a.active { color: var(--ink); }
+.nav a::after { content: ""; position: absolute; left: .7rem; right: .7rem; bottom: 8px; height: 2px; background: var(--grad); background-size: 200% 100%; transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease); }
+.nav a.active::after { transform: scaleX(1); }
+
+/* buttons */
+.btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 48px; padding: .75rem 1.25rem; border-radius: 10px; border: 1px solid var(--line-2); background: var(--panel); color: var(--ink); font: 500 .95rem/1 var(--f-body); cursor: pointer; transition: transform .25s var(--ease), border-color .25s, background-position .6s; }
+.btn:hover { transform: translateY(-2px); border-color: var(--muted); }
+.btn.primary { border: 0; color: var(--bg); font-weight: 600; background: var(--grad); background-size: 200% 100%; }
+.btn.primary:hover { background-position: 100% 0; box-shadow: 0 10px 40px -10px var(--be); }
+.btn.small { min-height: 40px; padding: .5rem .9rem; font-size: .88rem; }
+.ext { margin-left: .3em; transition: transform .25s var(--ease); display: inline-block; }
+a:hover > .ext { transform: translate(2px, -2px); }
+
+/* glow cards: border + spotlight follow the cursor */
+.glow { position: relative; isolation: isolate; background: linear-gradient(180deg, var(--panel-2), var(--panel)); border: 1px solid var(--line); border-radius: 16px; transition: transform .35s var(--ease), border-color .35s; }
+.glow::before, .glow::after { content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .35s; }
+.glow::before { padding: 1px; background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), var(--c, var(--be)), transparent 55%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); z-index: 2; }
+.glow::after { background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--c, var(--be)) 11%, transparent), transparent 60%); z-index: -1; }
+.glow:hover::before, .glow:hover::after { opacity: 1; }
+.lift:hover { transform: translateY(-4px); }
 
 /* hero */
-.hero { padding-block: clamp(3rem, 7vw, 5.5rem) clamp(2.5rem, 5vw, 4rem); display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.75rem; }
-.hero-top { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
-.hero h1 { font-size: clamp(2.6rem, 1.3rem + 5.4vw, 5.4rem); font-weight: 800; font-stretch: 116%; line-height: .96; letter-spacing: -.025em; }
-.hero h1 span { display: block; font-stretch: 75%; font-weight: 700; }
-.lede { font-size: clamp(1.1rem, 1rem + .4vw, 1.3rem); line-height: 1.55; max-width: 42rem; }
-.lede b { font-weight: 600; }
-.status { display: flex; align-items: baseline; gap: .6rem; font-size: .92rem; color: var(--muted); }
-.status::before { content: "200"; flex: none; color: var(--sre); font: 500 .8rem/1 var(--f-mono); }
-.ctas { display: flex; flex-wrap: wrap; gap: .75rem; }
-.proof { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem 2rem; }
-@media (max-width: 1000px) { .proof { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 560px) { .proof { grid-template-columns: minmax(0, 1fr); } }
-.proof li { display: grid; gap: .35rem; align-content: start; padding-top: .9rem; border-top: 1px solid var(--rule); font-size: .95rem; color: var(--muted); }
-.proof b { font: 500 .78rem/1.4 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
+.hero { position: relative; overflow: hidden; padding-block: clamp(4rem, 10vw, 8rem) clamp(3rem, 6vw, 4.5rem); }
+.lanes { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .75; -webkit-mask-image: radial-gradient(ellipse 75% 80% at 72% 55%, #000 15%, transparent 78%); mask-image: radial-gradient(ellipse 75% 80% at 72% 55%, #000 15%, transparent 78%); }
+.aurora { position: absolute; inset: 0; pointer-events: none; overflow: hidden; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent); }
+.contact .aurora { -webkit-mask-image: linear-gradient(transparent, #000 45%); mask-image: linear-gradient(transparent, #000 45%); }
+.aurora i { position: absolute; width: 44rem; height: 44rem; border-radius: 50%; filter: blur(100px); opacity: .2; animation: drift 20s ease-in-out infinite alternate; }
+.aurora i:nth-child(1) { background: var(--fe); top: -22rem; right: -12rem; }
+.aurora i:nth-child(2) { background: var(--ai); bottom: -26rem; left: -16rem; animation-delay: -10s; }
+@keyframes drift { to { transform: translate(-7rem, 5rem) scale(1.15); } }
+.hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(640px circle at var(--hx, 70%) var(--hy, 35%), rgba(113, 151, 255, .09), transparent 60%); }
+.hero-in { position: relative; z-index: 1; display: grid; gap: 1.6rem; }
+.badge { justify-self: start; display: inline-flex; align-items: center; gap: .65rem; padding: .35rem .95rem .35rem .4rem; border: 1px solid var(--line-2); border-radius: 999px; background: color-mix(in srgb, var(--panel) 75%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); font-size: .88rem; color: var(--muted); animation: fade .8s var(--ease) both; }
+.badge b { flex: none; font: 500 .74rem/1 var(--f-mono); color: var(--bg); background: var(--sre); padding: .35rem .55rem; border-radius: 999px; animation: ping 2.4s ease-out infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--sre) 55%, transparent); } 70%, 100% { box-shadow: 0 0 0 10px transparent; } }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } }
+.title { font-weight: 800; font-size: clamp(2.6rem, 1rem + 5.6vw, 6rem); line-height: .92; letter-spacing: -.03em; }
+.title .line { display: block; overflow: hidden; padding-bottom: .1em; margin-bottom: -.1em; }
+.title .line:first-child { font-stretch: 118%; }
+.title .cond { font-stretch: 75%; font-weight: 700; }
+.title .w { display: inline-block; animation: rise 1s var(--ease) both; animation-delay: calc(var(--i) * 90ms + 120ms); }
+.title .w.grad { animation: rise 1s var(--ease) both, shift 8s linear infinite; animation-delay: calc(var(--i) * 90ms + 120ms), 0s; }
+@keyframes rise { from { transform: translateY(105%); } }
+.whoami { font: 400 clamp(.95rem, .88rem + .35vw, 1.15rem)/1.4 var(--f-mono); color: var(--muted); animation: fade .8s var(--ease) .55s both; }
+.whoami .p { color: var(--sre); }
+.whoami .typed { color: var(--ink); }
+.caret { display: inline-block; width: .55em; height: 1.1em; margin-left: 2px; vertical-align: -.2em; background: var(--fe); animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.lede { max-width: 44rem; font-size: clamp(1.1rem, 1rem + .45vw, 1.35rem); line-height: 1.55; color: var(--muted); animation: fade .8s var(--ease) .7s both; }
+.lede b { color: var(--ink); font-weight: 600; }
+.ctas { display: flex; flex-wrap: wrap; gap: .75rem; animation: fade .8s var(--ease) .85s both; }
 
-/* trace waterfall */
-.trace { margin: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; --tpl: minmax(0, 21rem) minmax(0, 1fr) 4.5rem; }
-.trace-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.2rem; padding: .9rem 1.1rem; border-bottom: 1px solid var(--rule); font: 400 .82rem/1.4 var(--f-mono); color: var(--muted); }
+/* live trace console */
+.console { position: relative; z-index: 1; display: grid; gap: 1rem; }
+.trace { margin: 0; overflow: hidden; --tpl: minmax(0, 21rem) minmax(0, 1fr) 4.5rem; box-shadow: 0 40px 100px -40px rgba(0, 0, 0, .9); }
+.trace-head { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.2rem; padding: .95rem 1.2rem; border-bottom: 1px solid var(--line); font: 400 .82rem/1.4 var(--f-mono); color: var(--muted); }
+.live { display: inline-flex; align-items: center; gap: .45rem; color: var(--sec); font-weight: 500; letter-spacing: .06em; }
+.live i { width: 7px; height: 7px; border-radius: 50%; background: var(--sec); animation: blink 1.4s steps(1) infinite; }
 .trace-head strong { color: var(--ink); font-weight: 500; font-size: .9rem; }
 .trace-head .owner { margin-left: auto; }
 .trace-head .owner b { color: var(--ink); font-weight: 500; }
-.axis, .span a { display: grid; grid-template-columns: var(--tpl); gap: 1rem; padding-inline: 1.1rem; }
-.axis { padding-block: .6rem .2rem; font: 400 .72rem/1 var(--f-mono); color: var(--muted); }
+.axis, .span a { display: grid; grid-template-columns: var(--tpl); gap: 1rem; padding-inline: 1.2rem; }
+.axis { padding-block: .7rem .2rem; font: 400 .72rem/1 var(--f-mono); color: var(--muted); }
 .ticks { grid-column: 2; position: relative; height: 1em; }
-.ticks span { position: absolute; left: calc(var(--at) * 1%); transform: translateX(-50%); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ticks span { position: absolute; left: calc(var(--at) * 1%); transform: translateX(-50%); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .ticks span:first-child { transform: none; }
 .ticks span:last-child { transform: translateX(-100%); }
-.spans { list-style: none; padding-bottom: .5rem; }
-.span { transition: opacity .15s; }
-.spans:hover .span:not(:hover) { opacity: .45; }
-.span a { align-items: center; min-height: 44px; padding-block: .5rem; text-decoration: none; color: inherit; }
-.span a:hover, .span a:focus-visible { background: var(--wash); outline-offset: -2px; border-radius: 0; }
+.spans { list-style: none; padding-bottom: .6rem; }
+.span { transition: opacity .2s; }
+.spans:hover .span:not(:hover) { opacity: .4; }
+.span a { align-items: center; min-height: 46px; padding-block: .5rem; }
+.span a:hover, .span a:focus-visible { background: color-mix(in srgb, var(--c) 7%, transparent); outline-offset: -2px; border-radius: 0; }
 .svc { display: flex; align-items: baseline; gap: .55rem; min-width: 0; padding-left: calc(var(--d) * .9rem); }
-.svc i { flex: none; width: 9px; height: 9px; border-radius: 2px; background: var(--c); transform: translateY(1px); }
+.svc i { flex: none; width: 9px; height: 9px; border-radius: 2px; background: var(--c); box-shadow: 0 0 10px var(--c); transform: translateY(1px); }
 .svc b { font-weight: 600; font-size: .95rem; white-space: nowrap; }
 .svc em { font: normal 400 .78rem/1.3 var(--f-mono); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.track { position: relative; height: 22px; background-image: linear-gradient(to right, var(--rule) 1px, transparent 1px); background-size: 25% 100%; background-position: -1px 0; }
-.bar-s { position: absolute; top: 5px; bottom: 5px; left: calc(var(--s) * 1%); width: max(4px, calc(var(--w) * 1%)); background: var(--c); border-radius: 2px; transform-origin: left; animation: grow .7s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i) * 90ms + 150ms); }
-@keyframes grow { from { transform: scaleX(0); } }
+.track { position: relative; height: 22px; background-image: linear-gradient(to right, var(--line) 1px, transparent 1px); background-size: 25% 100%; background-position: -1px 0; }
+.track::after { content: ""; position: absolute; top: -12px; bottom: -12px; left: calc(var(--t, 0) * 1%); width: 1px; background: linear-gradient(transparent, var(--ink), transparent); opacity: calc(var(--sw, 0) * .5); }
+.bar-s { position: absolute; top: 5px; bottom: 5px; left: calc(var(--s) * 1%); width: max(4px, calc(var(--w) * 1%)); border-radius: 3px; background: var(--c); box-shadow: 0 0 16px -2px var(--c); }
 .dur { font: 400 .82rem/1 var(--f-mono); text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
-.trace figcaption { padding: .8rem 1.1rem; border-top: 1px solid var(--rule); font-size: .88rem; color: var(--muted); }
+.trace figcaption { padding: .85rem 1.2rem; border-top: 1px solid var(--line); font-size: .88rem; color: var(--muted); }
+.proof { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+.proof li { display: grid; gap: .45rem; align-content: start; padding: 1.15rem 1.25rem; font-size: .95rem; color: var(--muted); }
+.proof b { display: flex; align-items: center; gap: .5rem; font: 500 .76rem/1.3 var(--f-mono); letter-spacing: .07em; text-transform: uppercase; color: var(--ink); }
+.proof b::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--c); box-shadow: 0 0 10px var(--c); }
+
+/* tool marquee */
+.marquee { display: grid; gap: .8rem; padding-block: clamp(2.5rem, 5vw, 4rem); overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.mq { display: flex; gap: .75rem; width: max-content; }
+.js .mq { animation: mq 55s linear infinite; }
+.js .mq.rev { animation-direction: reverse; animation-duration: 62s; }
+.marquee:hover .mq { animation-play-state: paused; }
+@keyframes mq { to { transform: translateX(calc(-50% - .375rem)); } }
+.chip { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem .9rem; border: 1px solid var(--line-2); border-radius: 999px; background: var(--panel); font: 400 .85rem/1 var(--f-mono); color: var(--muted); white-space: nowrap; }
+.chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--c, var(--muted)); box-shadow: 0 0 8px var(--c, transparent); }
 
 /* sections */
-.section { padding-block: clamp(3.5rem, 8vw, 6rem); border-top: 1px solid var(--rule); }
-.section-head { display: grid; gap: .8rem; margin-bottom: clamp(2rem, 5vw, 3.5rem); max-width: 46rem; }
-.section-head h2 { font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3rem); font-weight: 800; font-stretch: 112%; line-height: 1.02; letter-spacing: -.02em; }
-.section-head p:not(.label) { color: var(--muted); font-size: 1.08rem; }
-.tools { font: 400 .8rem/1.6 var(--f-mono); color: var(--muted); }
+.section { position: relative; padding-block: clamp(4.5rem, 10vw, 8rem); }
+.head { display: grid; gap: 1rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); max-width: 54rem; }
+.kicker { display: inline-flex; align-items: center; gap: .7rem; font: 500 .78rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.kicker::before { content: ""; width: 2rem; height: 2px; background: var(--grad); }
+.head h2 { font-size: clamp(2.3rem, 1.2rem + 4vw, 4.6rem); font-weight: 800; font-stretch: 114%; line-height: .96; letter-spacing: -.03em; }
+.head h2 .cond { font-stretch: 75%; font-weight: 700; }
+.head .sub { max-width: 42rem; font-size: 1.1rem; color: var(--muted); }
 
-/* projects */
-.projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
-@media (max-width: 1000px) { .projects { grid-template-columns: minmax(0, 1fr); } }
-.proj { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: clamp(1.25rem, 3vw, 1.75rem); display: grid; gap: .9rem; align-content: start; min-width: 0; }
-.proj.feature { grid-column: 1 / -1; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1.5rem 2.5rem; }
-.proj-text, .proj-media { display: grid; gap: .9rem; align-content: start; min-width: 0; }
-.proj h3 { font-size: 1.5rem; font-weight: 800; font-stretch: 110%; letter-spacing: -.01em; }
-.proj.feature h3 { font-size: clamp(1.8rem, 1.3rem + 1.6vw, 2.4rem); }
-.kind { font-weight: 500; color: var(--ink); }
-.proj p:not([class]) { color: var(--muted); font-size: .98rem; }
-.links { display: flex; flex-wrap: wrap; gap: .2rem 1.2rem; font-size: .92rem; font-weight: 500; }
-.links a { display: inline-flex; align-items: center; min-height: 44px; }
-.private { color: var(--muted); font: 400 .8rem/1.4 var(--f-mono); }
-.shot { border: 1px solid var(--rule); border-radius: 8px; }
-.term { margin: 0; background: var(--wash); border-radius: 8px; padding: 1rem 1.1rem; font: 400 .85rem/1.75 var(--f-mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+/* projects bento */
+.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1rem; }
+.tile { display: grid; gap: 1rem; align-content: start; min-width: 0; padding: clamp(1.3rem, 2.6vw, 2rem); }
+.t-ping { grid-column: span 7; grid-row: span 2; --c: var(--fe); }
+.t-klip { grid-column: span 5; --c: var(--sec); }
+.t-rt { grid-column: span 5; --c: var(--ai); }
+.t-hb { grid-column: span 7; --c: var(--be); }
+.t-more { grid-column: span 5; --c: var(--ops); }
+.tag-top { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; font: 500 .74rem/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.tag-top .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); }
+.tile h3 { font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem); font-weight: 800; font-stretch: 112%; letter-spacing: -.02em; line-height: 1; }
+.t-ping h3 { font-size: clamp(2.2rem, 1.5rem + 2.4vw, 3.4rem); }
+.kind { font-size: 1.05rem; font-weight: 500; color: var(--ink); }
+.body { color: var(--muted); }
+.feats { list-style: none; display: grid; gap: .5rem; font-size: .96rem; color: var(--muted); }
+.feats li { position: relative; padding-left: 1.2rem; }
+.feats li::before { content: "→"; position: absolute; left: 0; color: var(--c); }
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+.tag { padding: .3rem .6rem; border: 1px solid var(--line-2); border-radius: 6px; font: 400 .75rem/1.2 var(--f-mono); color: var(--muted); }
+.links { display: flex; flex-wrap: wrap; gap: .5rem; }
+.links a { display: inline-flex; align-items: center; min-height: 40px; padding-inline: .9rem; border: 1px solid var(--line-2); border-radius: 8px; font-size: .9rem; font-weight: 500; transition: border-color .2s, background .2s; }
+.links a:hover { border-color: var(--c); background: color-mix(in srgb, var(--c) 8%, transparent); }
+.shot { overflow: hidden; border: 1px solid var(--line-2); border-radius: 12px; background: #000; }
+.shot-bar { display: flex; align-items: center; gap: .45rem; padding: .55rem .8rem; border-bottom: 1px solid var(--line); background: var(--panel); font: 400 .74rem/1 var(--f-mono); color: var(--muted); }
+.shot-bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-2); }
+.shot-bar span { margin-left: .5rem; }
+.shot img { transition: transform 1s var(--ease); }
+.t-ping:hover .shot img { transform: scale(1.035); }
+.term { margin: 0; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: 10px; background: #080B10; font: 400 .85rem/1.75 var(--f-mono); white-space: pre-wrap; overflow-wrap: anywhere; }
 .term .c { color: var(--muted); }
 .term .p { color: var(--fe); user-select: none; }
-.feats { list-style: none; display: grid; gap: .45rem; font-size: .95rem; }
-.feats li { padding-left: 1rem; position: relative; }
-.feats li::before { content: "›"; position: absolute; left: 0; color: var(--muted); }
-.smaller { margin-top: 1.75rem; font-size: .95rem; color: var(--muted); max-width: 52rem; }
-.smaller b { color: var(--ink); font-weight: 600; }
+.more { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; }
 
 /* how I work */
-.ai-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 3rem; }
-.principles { display: grid; gap: 1.6rem; align-content: start; }
-.principles h3 { font-size: 1.15rem; font-weight: 700; font-stretch: 106%; margin-bottom: .35rem; }
-.principles p { color: var(--muted); max-width: 36rem; }
-.plan { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: clamp(1.25rem, 3vw, 1.75rem); align-self: start; }
-.plan ol { list-style: none; display: grid; gap: 1.1rem; margin-top: 1rem; }
-.plan li { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 1rem; }
-.plan .wk { font: 500 .78rem/1.5 var(--f-mono); color: var(--muted); padding-top: .15rem; text-transform: uppercase; letter-spacing: .05em; }
-.plan li p { color: var(--muted); font-size: .95rem; }
-.plan p b { color: var(--ink); font-weight: 600; }
+.principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-bottom: clamp(3rem, 6vw, 4.5rem); }
+.pr { display: grid; gap: .7rem; align-content: start; padding: 1.6rem; }
+.pr .tag-top { color: var(--c); }
+.pr h3 { font-size: 1.3rem; font-weight: 700; font-stretch: 108%; }
+.plan-wrap { display: grid; gap: 1.4rem; }
+.plan { list-style: none; position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; padding-top: 2.4rem; }
+.plan::before, .plan::after { content: ""; position: absolute; top: .55rem; left: 0; right: 0; height: 2px; background: var(--line); }
+.plan::after { background: var(--grad); transform-origin: left; transition: transform 1.6s var(--ease) .2s; }
+.js .plan:not(.in)::after { transform: scaleX(0); }
+.plan li { position: relative; display: grid; gap: .4rem; align-content: start; }
+.plan li::before { content: ""; position: absolute; top: calc(-2.4rem + .55rem - 6px); left: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 2px solid var(--c); box-shadow: 0 0 14px var(--c); }
+.wk { font: 500 .76rem/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
+.plan h3 { font-size: 1.15rem; font-weight: 700; font-stretch: 106%; }
+.plan p { color: var(--muted); font-size: .96rem; }
 
-/* experience */
-.jobs { list-style: none; display: grid; }
-.job { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: .5rem 2.5rem; padding-block: 2rem; border-top: 1px solid var(--rule); }
-.job:first-child { border-top: 0; padding-top: 0; }
-.when { font: 400 .85rem/1.5 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; padding-top: .3rem; }
-.job h3 { font-size: 1.35rem; font-weight: 700; font-stretch: 108%; }
-.role { color: var(--muted); margin-top: .15rem; }
-.job ul { margin-top: .8rem; display: grid; gap: .5rem; padding-left: 1.1rem; font-size: .98rem; max-width: 46rem; }
-.job ul { list-style: square; }
-.job li::marker { color: var(--muted); }
-.subs { display: grid; gap: 1.6rem; margin-top: 1.2rem; }
-.sub h4 { font: 600 1rem/1.4 var(--f-body); }
-.sub h4 span { font: 400 .82rem/1.4 var(--f-mono); color: var(--muted); margin-left: .5rem; white-space: nowrap; }
-.sub ul { margin-top: .5rem; }
+/* experience timeline */
+.tl { list-style: none; position: relative; display: grid; gap: 1.5rem; padding-left: 2.6rem; }
+.tl::before, .tl::after { content: ""; position: absolute; left: .6rem; top: .5rem; width: 2px; border-radius: 2px; }
+.tl::before { bottom: .5rem; background: var(--line); }
+.tl::after { height: calc((100% - 1rem) * var(--p, 1)); background: linear-gradient(var(--sec), var(--ai), var(--be), var(--fe)); box-shadow: 0 0 12px var(--ai); }
+.tl-item { position: relative; }
+.tl-item::before { content: ""; position: absolute; left: calc(-2.6rem + .6rem - 6px); top: 2rem; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line-2); transition: border-color .4s, box-shadow .4s; }
+.tl-item.lit::before { border-color: var(--c); box-shadow: 0 0 0 4px color-mix(in srgb, var(--c) 18%, transparent), 0 0 18px var(--c); }
+.job { padding: clamp(1.3rem, 3vw, 2.1rem); display: grid; gap: .9rem; }
+.job-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .4rem 1.5rem; }
+.job h3 { font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem); font-weight: 800; font-stretch: 110%; letter-spacing: -.02em; }
+.when { font: 400 .85rem/1.4 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.role { color: var(--muted); }
+.pts { list-style: none; display: grid; gap: .55rem; font-size: .98rem; max-width: 60rem; }
+.pts li { position: relative; padding-left: 1.2rem; }
+.pts li::before { content: ""; position: absolute; left: 0; top: .66em; width: 6px; height: 6px; border-radius: 1px; background: var(--c); }
+.subs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: .4rem; }
+.stint { display: grid; gap: .6rem; align-content: start; padding: 1.2rem 1.3rem; border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--bg) 40%, transparent); }
+.stint h4 { font: 600 1rem/1.35 var(--f-body); }
+.stint .when { font-size: .78rem; }
+.stint .pts { font-size: .93rem; color: var(--muted); }
 
 /* skills */
-.caps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 3rem 2.5rem; }
-.cap { display: grid; gap: .9rem; align-content: start; padding-top: 1.3rem; min-width: 0;
-  background: linear-gradient(to right, transparent calc(var(--s) * 1%), var(--c) 0 calc((var(--s) + var(--w)) * 1%), transparent 0) 0 0 / 100% 4px no-repeat,
-    linear-gradient(var(--rule), var(--rule)) 0 1.5px / 100% 1px no-repeat; }
-.cap h3 { display: flex; align-items: center; gap: .6rem; font-size: 1.3rem; font-weight: 700; font-stretch: 108%; }
-.cap h3 i { width: 12px; height: 12px; border-radius: 3px; background: var(--c); flex: none; }
-.cap ul { list-style: none; display: grid; gap: .6rem; font-size: .97rem; }
-.cap li { padding-left: 1rem; position: relative; }
-.cap li::before { content: ""; position: absolute; left: 0; top: .68em; width: 5px; height: 5px; border-radius: 1px; background: var(--c); }
-.src { font: 400 .75rem/1 var(--f-mono); color: var(--muted); white-space: nowrap; }
-.cap:target h3 { text-decoration: underline 2px var(--c); text-underline-offset: .3em; }
+.caps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.cap { display: grid; gap: 1rem; align-content: start; padding: 1.8rem 1.5rem 1.5rem; overflow: hidden; }
+.cap .sb { position: absolute; top: 0; height: 3px; left: calc(var(--s) * 1%); width: max(8px, calc(var(--w) * 1%)); background: var(--c); box-shadow: 0 0 16px var(--c); transform-origin: left; transition: transform 1.1s var(--ease) .25s; }
+.js .cap:not(.in) .sb { transform: scaleX(0); }
+.cap h3 { display: flex; align-items: center; gap: .65rem; font-size: 1.3rem; font-weight: 700; font-stretch: 108%; }
+.cap h3 i { width: 12px; height: 12px; border-radius: 3px; background: var(--c); box-shadow: 0 0 12px var(--c); flex: none; }
+.cap .pts { font-size: .95rem; color: var(--muted); }
+.src { display: inline-block; margin-left: .3rem; padding: .1rem .4rem; border: 1px solid var(--line-2); border-radius: 4px; font: 400 .7rem/1.4 var(--f-mono); color: var(--ink); white-space: nowrap; vertical-align: .08em; }
 
 /* contact */
-.contact h2 { font-size: clamp(2.2rem, 1.2rem + 4vw, 4.2rem); font-weight: 800; font-stretch: 116%; line-height: .98; letter-spacing: -.025em; max-width: 16ch; margin-top: .8rem; }
-.contact-body { display: grid; gap: 1.6rem; margin-top: 1.5rem; }
-.contact-body > p { color: var(--muted); max-width: 40rem; font-size: 1.1rem; }
-.email { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
-.email a { font: 500 clamp(1.15rem, 1rem + 1.2vw, 1.7rem)/1.2 var(--f-mono); text-decoration: none; border-bottom: 2px solid var(--be); overflow-wrap: anywhere; }
-.elsewhere { display: flex; flex-wrap: wrap; gap: .2rem 1.6rem; font-weight: 500; }
-.elsewhere a { display: inline-flex; align-items: center; min-height: 44px; }
-footer { border-top: 1px solid var(--rule); }
+.contact { overflow: hidden; }
+.contact .aurora i:nth-child(1) { background: var(--be); top: auto; bottom: -30rem; right: -10rem; }
+.contact .aurora i:nth-child(2) { background: var(--sec); top: -30rem; bottom: auto; left: -20rem; opacity: .14; }
+.contact-in { position: relative; z-index: 1; display: grid; gap: 1.6rem; }
+.contact h2 { font-size: clamp(2.8rem, 1.1rem + 6.4vw, 6.8rem); font-weight: 800; font-stretch: 116%; line-height: .92; letter-spacing: -.03em; }
+.contact h2 .cond { display: block; font-stretch: 75%; font-weight: 700; }
+.contact-in > p { max-width: 42rem; font-size: 1.15rem; color: var(--muted); }
+.email { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; }
+.email a { font: 500 clamp(1.2rem, 1rem + 1.4vw, 2rem)/1.2 var(--f-mono); overflow-wrap: anywhere; background: var(--grad); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; border-bottom: 1px solid var(--line-2); padding-bottom: .2rem; }
+.social { display: flex; flex-wrap: wrap; gap: .6rem; }
+footer { border-top: 1px solid var(--line); }
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; padding-block: 1.6rem; font: 400 .8rem/1.5 var(--f-mono); color: var(--muted); }
+footer a:hover { color: var(--ink); }
 
+@media (max-width: 1000px) {
+  .proof { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bento > * { grid-column: 1 / -1; grid-row: auto; }
+  .principles { grid-template-columns: minmax(0, 1fr); }
+  .caps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .plan { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.5rem; }
+  .plan::before, .plan::after { display: none; }
+  .plan li::before { top: -1.6rem; }
+}
 @media (max-width: 760px) {
   .nav a:not(.keep) { display: none; }
   .trace { --tpl: minmax(0, 1fr) auto; }
   .ticks, .track { grid-column: 1 / -1; }
   .span a { row-gap: .35rem; }
-  .svc { grid-row: 1; }
-  .dur { grid-row: 1; grid-column: 2; }
-  .trace-head .owner { margin-left: 0; }
-  .svc { flex-wrap: wrap; row-gap: .1rem; }
+  .svc { grid-row: 1; flex-wrap: wrap; row-gap: .1rem; }
   .svc em { flex-basis: 100%; padding-left: calc(9px + .55rem); white-space: normal; }
-  .dur { align-self: start; padding-top: .2rem; }
-  .job { grid-template-columns: 1fr; }
-  .when { padding-top: 0; }
+  .dur { grid-row: 1; grid-column: 2; align-self: start; padding-top: .2rem; }
+  .trace-head .owner { margin-left: 0; }
+  .subs { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .proof, .caps, .plan { grid-template-columns: minmax(0, 1fr); }
+  .plan { padding-top: 0; padding-left: 1.8rem; row-gap: 1.8rem; }
+  .plan li::before { top: .2rem; left: -1.8rem; }
+  .tl { padding-left: 2rem; }
+  .tl::before, .tl::after { left: .35rem; }
+  .tl-item::before { left: calc(-2rem + .35rem - 6px); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .bar-s { animation: none; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; }
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
+<div class="progress" aria-hidden="true"><i></i></div>
 
 <header class="bar">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Rohan Pandey, back to top">
-      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="var(--ink)"/><rect x="6" y="9" width="20" height="3" rx="1" fill="var(--fe)"/><rect x="9" y="15" width="14" height="3" rx="1" fill="var(--be)"/><rect x="12" y="21" width="8" height="3" rx="1" fill="var(--sec)"/></svg>
+      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#131A24" stroke="#293444"/><rect x="6" y="9" width="20" height="3" rx="1" fill="var(--fe)"/><rect x="9" y="15" width="14" height="3" rx="1" fill="var(--be)"/><rect x="12" y="21" width="8" height="3" rx="1" fill="var(--sec)"/></svg>
       Rohan Pandey
     </a>
     <nav class="nav" aria-label="Sections">
@@ -239,159 +321,183 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <a href="#skills">Skills</a>
       <a class="keep" href="#contact">Contact</a>
     </nav>
-    <a class="btn small" href="Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    <a class="btn small" href="Resume.pdf" target="_blank" rel="noopener">Résumé<span class="sr-only"> (opens in new tab)</span></a>
   </div>
 </header>
 
 <main id="top">
-  <section class="wrap hero" aria-labelledby="hero-title">
-    <div class="hero-top">
-      <p class="label">Founding / early-stage engineer · Delhi, remote</p>
-      <h1 id="hero-title">Frontend to firewall. <span>One engineer.</span></h1>
-      <p class="lede">I’m Rohan. Since 2022 I’ve been paid to keep production up and locked down: AWS and Kubernetes for <b>SonyLIV</b>’s streaming platform, and now security engineering at <b>CARS24</b>. Outside work I design, build and ship whole products on my own, like <b>Ping</b>, live at theping.chat. AI agents write much of the first draft and I review what ships. That’s how one person covers the whole stack.</p>
-      <p class="status">Open to founding and early-stage roles · remote, US-hours friendly</p>
+  <section class="hero" aria-labelledby="hero-title">
+    <canvas class="lanes" aria-hidden="true"></canvas>
+    <div class="aurora" aria-hidden="true"><i></i><i></i></div>
+    <div class="wrap hero-in">
+      <p class="badge"><b>200</b>Open to founding &amp; early-stage roles · remote, US-hours friendly</p>
+      <h1 class="title" id="hero-title">
+        <span class="line"><span class="w" style="--i:0">Frontend</span> <span class="w" style="--i:1">to</span> <span class="w" style="--i:2">firewall.</span></span>
+        <span class="line cond"><span class="w grad" style="--i:3">One engineer.</span></span>
+      </h1>
+      <p class="whoami" aria-label="whoami: full-stack, DevOps, SRE, security and AI engineer"><span class="p">$</span> whoami <span aria-hidden="true">→ <span class="typed">full-stack engineer</span><span class="caret"></span></span></p>
+      <p class="lede">I’m Rohan. Since 2022 I’ve kept production up and locked down, for <b>SonyLIV</b>’s streaming platform and now as a security engineer at <b>CARS24</b>. On my own I design, build and ship whole products, like <b>Ping</b>. AI agents write much of the first draft, and I review what ships.</p>
       <div class="ctas">
         <a class="btn primary" href="mailto:r0wh4n8750@gmail.com?subject=Founding%20engineer%20role">Email me</a>
         <a class="btn" href="#projects">See what I’ve shipped</a>
       </div>
     </div>
+  </section>
 
-
-    <figure class="trace" aria-labelledby="trace-cap">
+  <section class="wrap console" aria-label="How the stack fits together">
+    <figure class="trace glow reveal" aria-labelledby="trace-cap">
       <div class="trace-head">
+        <span class="live"><i></i>LIVE</span>
         <strong>GET /checkout</strong>
-        <span>illustrative trace · 6 layers · 240 ms</span>
+        <span><span class="tid">trace 4f9c2e</span> · 6 layers · <span class="total">240 ms</span></span>
         <span class="owner">owner of every span: <b>rohan</b></span>
       </div>
       <div class="axis" aria-hidden="true">
         <div class="ticks"><span style="--at:0">0</span><span style="--at:25">60</span><span style="--at:50">120</span><span style="--at:75">180</span><span style="--at:100">240 ms</span></div>
       </div>
       <ol class="spans">
-        <li class="span" style="--c:var(--fe);--s:0;--w:100;--d:0;--i:0"><a href="#frontend"><span class="svc"><i></i><b>Frontend</b><em>browser · render /checkout</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">240 ms</span></a></li>
-        <li class="span" style="--c:var(--sec);--s:2.5;--w:5.8;--d:1;--i:1"><a href="#security"><span class="svc"><i></i><b>Security</b><em>edge · WAF + zero-trust check</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">14 ms</span></a></li>
-        <li class="span" style="--c:var(--ops);--s:9.2;--w:74;--d:1;--i:2"><a href="#devops"><span class="svc"><i></i><b>DevOps</b><em>k8s · orders-svc on EKS</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">178 ms</span></a></li>
-        <li class="span" style="--c:var(--be);--s:11.7;--w:67.5;--d:2;--i:3"><a href="#backend"><span class="svc"><i></i><b>Backend</b><em>api · POST /orders</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">162 ms</span></a></li>
-        <li class="span" style="--c:var(--ai);--s:29;--w:33;--d:3;--i:4"><a href="#ai-eng"><span class="svc"><i></i><b>AI</b><em>llm · fraud check</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">80 ms</span></a></li>
-        <li class="span" style="--c:var(--sre);--s:83;--w:6;--d:1;--i:5"><a href="#sre"><span class="svc"><i></i><b>SRE</b><em>metrics · dashboard + alert</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">14 ms</span></a></li>
+        <li class="span" data-s="0" data-w="240" style="--c:var(--fe);--s:0;--w:100;--d:0"><a href="#frontend"><span class="svc"><i></i><b>Frontend</b><em>browser · render /checkout</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">240 ms</span></a></li>
+        <li class="span" data-s="6" data-w="14" style="--c:var(--sec);--s:2.5;--w:5.8;--d:1"><a href="#security"><span class="svc"><i></i><b>Security</b><em>edge · WAF + zero-trust check</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">14 ms</span></a></li>
+        <li class="span" data-s="22" data-w="178" style="--c:var(--ops);--s:9.2;--w:74;--d:1"><a href="#devops"><span class="svc"><i></i><b>DevOps</b><em>k8s · orders-svc on EKS</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">178 ms</span></a></li>
+        <li class="span" data-s="28" data-w="162" style="--c:var(--be);--s:11.7;--w:67.5;--d:2"><a href="#backend"><span class="svc"><i></i><b>Backend</b><em>api · POST /orders</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">162 ms</span></a></li>
+        <li class="span" data-s="70" data-w="80" style="--c:var(--ai);--s:29;--w:33;--d:3"><a href="#ai-eng"><span class="svc"><i></i><b>AI</b><em>llm · fraud check</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">80 ms</span></a></li>
+        <li class="span" data-s="200" data-w="14" style="--c:var(--sre);--s:83;--w:6;--d:1"><a href="#sre"><span class="svc"><i></i><b>SRE</b><em>metrics · dashboard + alert</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">14 ms</span></a></li>
       </ol>
       <figcaption id="trace-cap">An illustrative request through a typical product. I’ve built or run each of these layers in my work. Select one to see where.</figcaption>
     </figure>
+
     <ul class="proof" aria-label="Highlights">
-      <li><b>Ping · live</b>Chat app and AI agent rooms at theping.chat. Frontend, realtime backend and MCP server, built solo.</li>
-      <li><b>Resume Tailor · 2 days</b>A two-model LLM app with sign-in and billing, from first file to open-source release in about two days.</li>
-      <li><b>CARS24 · security</b>Moving hundreds of internal tools behind zero-trust access with one reusable policy.</li>
-      <li><b>SonyLIV · DevOps</b>Terraform, Kubernetes and GitOps for a large streaming platform on AWS.</li>
+      <li class="glow lift reveal" style="--c:var(--fe);--d:0"><b>Ping · live</b>Chat app and AI agent rooms at theping.chat. Frontend, realtime backend and MCP server, built solo.</li>
+      <li class="glow lift reveal" style="--c:var(--ai);--d:1"><b>Resume Tailor · 2 days</b>A two-model LLM app with sign-in and billing, from first file to open-source release in about two days.</li>
+      <li class="glow lift reveal" style="--c:var(--sec);--d:2"><b>CARS24 · security</b>Moving hundreds of internal tools behind zero-trust access with one reusable policy.</li>
+      <li class="glow lift reveal" style="--c:var(--ops);--d:3"><b>SonyLIV · DevOps</b>Terraform, Kubernetes and GitOps for a large streaming platform on AWS.</li>
     </ul>
   </section>
 
+  <div class="marquee" aria-hidden="true">
+    <div class="mq"><span class="chip" style="--c:var(--fe)">React</span><span class="chip" style="--c:var(--fe)">Next.js</span><span class="chip" style="--c:var(--fe)">TypeScript</span><span class="chip" style="--c:var(--fe)">SwiftUI</span><span class="chip" style="--c:var(--be)">Node.js</span><span class="chip" style="--c:var(--be)">Python</span><span class="chip" style="--c:var(--be)">Flask</span><span class="chip" style="--c:var(--be)">PostgreSQL</span><span class="chip" style="--c:var(--be)">Redis</span><span class="chip" style="--c:var(--be)">Kafka</span><span class="chip" style="--c:var(--be)">Supabase</span><span class="chip" style="--c:var(--be)">WebSockets</span><span class="chip" style="--c:var(--ai)">OpenAI</span><span class="chip" style="--c:var(--ai)">Anthropic</span><span class="chip" style="--c:var(--ai)">MCP</span><span class="chip" style="--c:var(--ai)">Claude Code</span><span class="chip" style="--c:var(--ai)">Codex</span><span class="chip" style="--c:var(--ai)">Cursor</span><span class="chip" style="--c:var(--ai)">Whisper</span></div>
+    <div class="mq rev"><span class="chip" style="--c:var(--ops)">AWS</span><span class="chip" style="--c:var(--ops)">Azure</span><span class="chip" style="--c:var(--ops)">GCP</span><span class="chip" style="--c:var(--ops)">Cloudflare</span><span class="chip" style="--c:var(--ops)">Terraform</span><span class="chip" style="--c:var(--ops)">Kubernetes</span><span class="chip" style="--c:var(--ops)">Helm</span><span class="chip" style="--c:var(--ops)">Argo CD</span><span class="chip" style="--c:var(--ops)">Docker</span><span class="chip" style="--c:var(--ops)">GitHub Actions</span><span class="chip" style="--c:var(--sre)">Grafana</span><span class="chip" style="--c:var(--sre)">Datadog</span><span class="chip" style="--c:var(--sre)">VictoriaMetrics</span><span class="chip" style="--c:var(--sre)">Coralogix</span><span class="chip" style="--c:var(--sec)">Semgrep</span><span class="chip" style="--c:var(--sec)">Trivy</span><span class="chip" style="--c:var(--sec)">TruffleHog</span><span class="chip" style="--c:var(--sec)">Kubescape</span><span class="chip" style="--c:var(--sec)">GuardDuty</span><span class="chip" style="--c:var(--sec)">Wazuh</span></div>
+  </div>
+
   <section class="section" id="projects" aria-labelledby="projects-title">
     <div class="wrap">
-      <div class="section-head">
-        <p class="label">Built on my own</p>
-        <h2 id="projects-title">Things I’ve designed, built and shipped myself</h2>
-        <p>Design, code, infrastructure and security on each were mine. Ping is live, Klipvault and Resume Tailor are open source, and Hey Buddy is private.</p>
+      <div class="head reveal">
+        <p class="kicker">Built on my own</p>
+        <h2 id="projects-title">Things I’ve shipped <span class="cond">myself.</span></h2>
+        <p class="sub">Design, code, infrastructure and security on each were mine.</p>
       </div>
-      <div class="projects">
-        <article class="proj feature">
-          <div class="proj-text">
-            <p class="label">Live · theping.chat · since Aug 2026</p>
-            <h3>Ping</h3>
-            <p><span class="kind">A shared room where AI coding agents work together.</span> Put Claude Code, Codex and Cursor in one room. They share project context, talk to each other, and see commits, pull requests and CI results in one timeline.</p>
-            <ul class="feats">
-              <li>Rooms are scoped to a directory, so one team’s room isn’t delivered into another team’s project.</li>
-              <li>A live view of every agent room over a single WebSocket.</li>
-              <li>One-command install as a Claude Code plugin.</li>
-              <li>Also a consumer chat app: @handle sign-up with no phone number, end-to-end encrypted DMs, groups and calls.</li>
-            </ul>
-            <p class="tools">Next.js&nbsp;· TypeScript&nbsp;· Supabase&nbsp;· WebSockets&nbsp;· MCP&nbsp;· E2E&nbsp;encryption</p>
-            <p class="links"><a href="https://theping.chat/agents" target="_blank" rel="noopener">theping.chat<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a><a href="https://github.com/r0wh4n/ping" target="_blank" rel="noopener">Source on GitHub<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
+      <div class="bento">
+        <article class="tile glow t-ping reveal">
+          <p class="tag-top"><span class="dot"></span>Live · theping.chat · since Aug 2026</p>
+          <h3>Ping</h3>
+          <p class="kind">A shared room where AI coding agents work together.</p>
+          <p class="body">Claude Code, Codex and Cursor share one room, one project context, and one timeline of commits, pull requests and CI results.</p>
+          <ul class="feats">
+            <li>Rooms are scoped to a directory, so one team’s room isn’t delivered into another team’s project.</li>
+            <li>A live view of every agent room over a single WebSocket.</li>
+            <li>Also a consumer chat app with end-to-end encrypted DMs, groups and calls.</li>
+          </ul>
+          <div class="shot">
+            <div class="shot-bar" aria-hidden="true"><i></i><i></i><i></i><span>theping.chat/agents</span></div>
+            <img src="ping.png" width="1280" height="660" loading="lazy" alt="Ping’s agents page: “One link. Your whole team’s AI in one room.” above a terminal showing an agent joining a room and replying.">
           </div>
-          <div class="proj-media">
-            <img class="shot" src="ping.png" width="1280" height="660" loading="lazy" alt="Ping’s agents page: “One link. Your whole team’s AI in one room.” above a terminal showing an agent joining a room and replying.">
 <pre class="term"><span class="c"># connect Claude Code to a Ping room</span>
 <span class="p">› </span>/plugin marketplace add r0wh4n/ping
 <span class="p">› </span>/plugin install ping@ping
 <span class="p">› </span>/ping new backend team</pre>
-          </div>
+          <div class="tags"><span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Supabase</span><span class="tag">WebSockets</span><span class="tag">MCP</span><span class="tag">E2E encryption</span></div>
+          <p class="links"><a href="https://theping.chat/agents" target="_blank" rel="noopener">theping.chat<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a><a href="https://github.com/r0wh4n/ping" target="_blank" rel="noopener">Source<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
         </article>
 
-        <article class="proj">
-          <p class="label">Open source · macOS</p>
+        <article class="tile glow t-klip reveal" style="--d:1">
+          <p class="tag-top"><span class="dot"></span>Open source · macOS</p>
           <h3>Klipvault</h3>
-          <p><span class="kind">An encrypted clipboard manager for the menu bar.</span> Every item is sealed with AES-256-GCM before it reaches disk. It flags 13 kinds of secrets, like API keys, JWTs and card numbers, and can lock any single clip behind Touch ID. No dependencies, and no network code at all. It went from v1.0 to v1.1 in a week.</p>
+          <p class="kind">An encrypted clipboard manager for the menu bar.</p>
+          <p class="body">AES-256-GCM on every item before it touches disk, detection for 13 kinds of secrets, Touch ID per clip, and zero network code. v1.0 to v1.1 in a week.</p>
           <pre class="term"><span class="p">$ </span>brew install --cask r0wh4n/tap/klipvault</pre>
-          <p class="tools">Swift&nbsp;· SwiftUI&nbsp;· CryptoKit&nbsp;· Homebrew</p>
+          <div class="tags"><span class="tag">Swift</span><span class="tag">SwiftUI</span><span class="tag">CryptoKit</span><span class="tag">Homebrew</span></div>
           <p class="links"><a href="https://github.com/r0wh4n/Klipvault" target="_blank" rel="noopener">GitHub<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
         </article>
 
-        <article class="proj">
-          <p class="label">Open source · AI</p>
+        <article class="tile glow t-rt reveal" style="--d:2">
+          <p class="tag-top"><span class="dot"></span>Open source · AI · built in ~2 days</p>
           <h3>Resume Tailor</h3>
-          <p><span class="kind">Tailors a résumé to a job posting without inventing anything.</span> A writer model rewrites your real experience in the posting’s language. A screener model grades the result requirement by requirement, and the two loop until the score stops improving. Anything your résumé can’t back up comes back as a gap you can fill in yourself. Built in about two days.</p>
-          <p class="tools">Python&nbsp;· Flask&nbsp;· OpenAI&nbsp;· Anthropic&nbsp;· Postgres&nbsp;· Razorpay</p>
+          <p class="kind">Tailors a résumé to a job posting without inventing anything.</p>
+          <p class="body">A writer model rewrites, a screener grades it requirement by requirement, and they loop until the score stops climbing. Anything your résumé can’t back up comes back as a gap.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">OpenAI</span><span class="tag">Anthropic</span><span class="tag">Postgres</span><span class="tag">Razorpay</span></div>
           <p class="links"><a href="https://github.com/r0wh4n/resume-tailor" target="_blank" rel="noopener">GitHub<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
         </article>
 
-
-        <article class="proj">
-          <p class="label">Side project · Mac · private</p>
+        <article class="tile glow t-hb reveal">
+          <p class="tag-top"><span class="dot"></span>Side project · Mac · private</p>
           <h3>Hey Buddy</h3>
-          <p><span class="kind">A voice assistant that runs your Mac.</span> Say the wake word and it transcribes on-device with Whisper, plans with an LLM, and controls apps through AppleScript and in-browser JavaScript. It acts while you’re still talking, and asks for a spoken yes before anything risky.</p>
-          <p class="tools">Python&nbsp;· MLX&nbsp;Whisper&nbsp;· OpenAI&nbsp;tool&nbsp;calling&nbsp;· AppleScript</p>
+          <p class="kind">A voice assistant that runs your Mac.</p>
+          <p class="body">Say the wake word and it transcribes on-device with Whisper, plans with an LLM, and acts through AppleScript and in-browser JavaScript. It starts while you’re still talking, and asks for a spoken yes before anything risky.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">MLX Whisper</span><span class="tag">OpenAI tool calling</span><span class="tag">AppleScript</span></div>
+        </article>
+
+        <article class="tile glow t-more reveal" style="--d:1">
+          <p class="tag-top"><span class="dot"></span>Smaller builds</p>
+          <ul class="more">
+            <li class="chip" style="--c:var(--sec)">AI reviewer for Cloudflare WAF rules</li>
+            <li class="chip" style="--c:var(--be)">Zero-dependency X posting CLI</li>
+            <li class="chip" style="--c:var(--fe)">Chrome news extension</li>
+            <li class="chip" style="--c:var(--ops)">Weather wallpaper widget</li>
+          </ul>
+          <p class="body">Small tools I built because I needed them. The X CLI signs OAuth 1.0a requests by hand with only the standard library.</p>
         </article>
       </div>
-      <p class="smaller"><b>Smaller builds:</b> an AI reviewer that flags redundant and overly permissive Cloudflare WAF rules · a zero-dependency X posting CLI with hand-rolled OAuth 1.0a signing · a Chrome news extension · a desktop weather widget that changes the wallpaper to match the sky.</p>
     </div>
   </section>
 
   <section class="section" id="how" aria-labelledby="how-title">
     <div class="wrap">
-      <div class="section-head">
-        <p class="label">How I work</p>
-        <h2 id="how-title">AI agents do much of the typing. I&nbsp;own what ships.</h2>
-        <p>For an early team, that means a working prototype in days, and infrastructure, monitoring and security handled by the same person who builds the product.</p>
+      <div class="head reveal">
+        <p class="kicker">How I work</p>
+        <h2 id="how-title">Agents do much of the typing. <span class="cond">I&nbsp;own what ships.</span></h2>
+        <p class="sub">For an early team: a working prototype in days, and infrastructure, monitoring and security handled by the same person who builds the product.</p>
       </div>
-      <div class="ai-grid">
-        <div class="principles">
-          <div>
-            <h3>Several agents in parallel, one reviewer</h3>
-            <p>I run Claude Code, Codex and Cursor on separate tasks at the same time and review the diffs before they merge. Changes that touch production ship with tests and a rollback path.</p>
-          </div>
-          <div>
-            <h3>I build the tooling too</h3>
-            <p>Ping’s agent rooms exist because I wanted assistants from different vendors to share one context. Resume Tailor went from first file to open-source release in about two days.</p>
-          </div>
-          <div>
-            <h3>Speed with guardrails</h3>
-            <p>Secret scanning, least-privilege CI and branch protection are part of how I ship. At CARS24 I also added guardrails to the internal LLM gateway.</p>
-          </div>
-        </div>
-        <div class="plan">
-          <p class="label">If I join your team</p>
-          <ol>
-            <li><span class="wk">Week 1</span><p><b>Ship something real.</b> A fix or a feature in production is the fastest way I know to learn a codebase.</p></li>
-            <li><span class="wk">Weeks 2–3</span><p><b>Make releases routine.</b> CI/CD, infrastructure as code, preview environments and one-click rollback.</p></li>
-            <li><span class="wk">Week 4</span><p><b>Know when it breaks.</b> Dashboards, alerts that fire only for real problems, and uptime checks on every public endpoint.</p></li>
-            <li><span class="wk">Ongoing</span><p><b>A security baseline.</b> SSO, secret scanning, least-privilege access and zero trust for internal tools, sized to your stage.</p></li>
-          </ol>
-        </div>
+      <div class="principles">
+        <article class="pr glow lift reveal" style="--c:var(--ai);--d:0">
+          <p class="tag-top">agents</p>
+          <h3>Several agents, one reviewer</h3>
+          <p class="body">Claude Code, Codex and Cursor run separate tasks in parallel. I review the diffs before they merge, and changes that touch production ship with tests and a rollback path.</p>
+        </article>
+        <article class="pr glow lift reveal" style="--c:var(--fe);--d:1">
+          <p class="tag-top">tooling</p>
+          <h3>I build the tooling too</h3>
+          <p class="body">Ping exists because I wanted assistants from different vendors to share one context. Resume Tailor went from first file to release in about two days.</p>
+        </article>
+        <article class="pr glow lift reveal" style="--c:var(--sec);--d:2">
+          <p class="tag-top">guardrails</p>
+          <h3>Speed with guardrails</h3>
+          <p class="body">Secret scanning, least-privilege CI and branch protection come standard. At CARS24 I also added guardrails to the internal LLM gateway.</p>
+        </article>
+      </div>
+      <div class="plan-wrap">
+        <p class="kicker reveal">If I join your team</p>
+        <ol class="plan">
+          <li class="reveal" style="--c:var(--fe);--d:0"><span class="wk">Week 1</span><h3>Ship something real</h3><p>A fix or a feature in production is the fastest way I know to learn a codebase.</p></li>
+          <li class="reveal" style="--c:var(--ops);--d:1"><span class="wk">Weeks 2–3</span><h3>Make releases routine</h3><p>CI/CD, infrastructure as code, preview environments and one-click rollback.</p></li>
+          <li class="reveal" style="--c:var(--sre);--d:2"><span class="wk">Week 4</span><h3>Know when it breaks</h3><p>Dashboards, alerts that fire only for real problems, and uptime checks on every public endpoint.</p></li>
+          <li class="reveal" style="--c:var(--sec);--d:3"><span class="wk">Ongoing</span><h3>A security baseline</h3><p>SSO, secret scanning, least-privilege access and zero trust for internal tools, sized to your stage.</p></li>
+        </ol>
       </div>
     </div>
   </section>
 
   <section class="section" id="experience" aria-labelledby="exp-title">
     <div class="wrap">
-      <div class="section-head">
-        <p class="label">Experience</p>
-        <h2 id="exp-title">Since 2022, from React to root cause</h2>
+      <div class="head reveal">
+        <p class="kicker">Experience</p>
+        <h2 id="exp-title">Since 2022, from React <span class="cond">to root cause.</span></h2>
       </div>
-      <ol class="jobs">
-        <li class="job">
-          <p class="when">Sep 2025 – now<br>Delhi</p>
-          <div>
-            <h3>CARS24</h3>
+      <ol class="tl">
+        <li class="tl-item" style="--c:var(--sec)">
+          <article class="job glow reveal">
+            <div class="job-top"><h3>CARS24</h3><span class="when">Sep 2025 – now · Delhi</span></div>
             <p class="role">Security / DevSecOps Engineer</p>
-            <ul>
+            <ul class="pts">
               <li>Moving hundreds of internal tools behind zero-trust access in staged, reversible batches, using one reusable policy.</li>
               <li>Designed a zero-trust access model that combines device management, device-posture checks, DLP and identity-aware access.</li>
               <li>Deployed an in-house GitHub Advanced Security equivalent (Semgrep, Trivy, TruffleHog) with secret scanning, branch protection and least-privilege workflow permissions.</li>
@@ -399,49 +505,48 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
               <li>Led cloud incident response across AWS and GCP, and centralized detection and alerting in a SIEM.</li>
               <li>Own WAF rule design and safe rollout, including catching a proposed global rule that would have broken production before it shipped.</li>
             </ul>
-          </div>
+          </article>
         </li>
-        <li class="job">
-          <p class="when">Sep 2022 – Sep 2025<br>Remote</p>
-          <div>
-            <h3>AtomBuild</h3>
+        <li class="tl-item" style="--c:var(--ops)">
+          <article class="job glow reveal">
+            <div class="job-top"><h3>AtomBuild</h3><span class="when">Sep 2022 – Sep 2025 · Remote</span></div>
             <p class="role">Consultancy · three years, from trainee to DevOps engineer on SonyLIV</p>
             <div class="subs">
-              <div class="sub">
-                <h4>DevOps Engineer, SonyLIV <span>Sep 2024 – Sep 2025</span></h4>
-                <ul>
+              <div class="stint">
+                <h4>DevOps Engineer, SonyLIV</h4><p class="when">Sep 2024 – Sep 2025</p>
+                <ul class="pts">
                   <li>Ran AWS infrastructure (EC2, EKS, ECS, RDS, S3) for SonyLIV’s large-scale streaming workloads.</li>
-                  <li>Implemented infrastructure as code with Terraform and Terragrunt on AWS, and provisioned Azure with Terraform using remote state and per-environment modules.</li>
-                  <li>Deployed Kubernetes workloads with Helm and Argo CD (GitOps), and optimized Jenkins pipelines for faster, more reliable releases.</li>
-                  <li>Built observability in Grafana, VictoriaMetrics, Datadog and Coralogix, and supported Kafka and Redis event-driven services.</li>
+                  <li>Infrastructure as code with Terraform and Terragrunt on AWS, and Terraform for Azure with remote state and per-environment modules.</li>
+                  <li>Kubernetes deploys with Helm and Argo CD (GitOps), and faster, more reliable Jenkins pipelines.</li>
+                  <li>Observability in Grafana, VictoriaMetrics, Datadog and Coralogix; Kafka and Redis event-driven services.</li>
                 </ul>
               </div>
-              <div class="sub">
-                <h4>DevOps Engineer, Atomhub <span>Jan 2023 – Sep 2024</span></h4>
-                <ul>
-                  <li>Built Azure DevOps YAML pipelines deploying containers to AKS, and ran workloads on EKS and ECS.</li>
-                  <li>Automated provisioning and environment replication with Terraform.</li>
-                  <li>Set up centralized logging, metrics and alerting with Grafana, Datadog and Coralogix.</li>
+              <div class="stint">
+                <h4>DevOps Engineer, Atomhub</h4><p class="when">Jan 2023 – Sep 2024</p>
+                <ul class="pts">
+                  <li>Azure DevOps YAML pipelines deploying containers to AKS, plus workloads on EKS and ECS.</li>
+                  <li>Terraform for provisioning and environment replication.</li>
+                  <li>Centralized logging, metrics and alerting with Grafana, Datadog and Coralogix.</li>
                 </ul>
               </div>
-              <div class="sub">
-                <h4>Across both DevOps roles <span>2023 – 2025</span></h4>
-                <ul>
+              <div class="stint">
+                <h4>Across both DevOps roles</h4><p class="when">2023 – 2025</p>
+                <ul class="pts">
                   <li>Hardened Kubernetes with Trivy, Grype and Kubescape, RBAC, TLS and network policies.</li>
-                  <li>Added SAST, DAST, container and secret scanning to CI/CD, with gates that block vulnerable deploys.</li>
-                  <li>Ran GuardDuty, Security Hub and Wazuh for detection, and handled incidents with playbooks and root-cause reviews.</li>
+                  <li>SAST, DAST, container and secret scanning in CI/CD, with gates that block vulnerable deploys.</li>
+                  <li>GuardDuty, Security Hub and Wazuh for detection, with playbook-driven incident response.</li>
                 </ul>
               </div>
-              <div class="sub">
-                <h4>Engineering Trainee / DevOps Intern <span>Sep 2022 – Jan 2023</span></h4>
-                <ul>
-                  <li>Built a React website and a Flask and MongoDB CRUD app, and Dockerized it for deployment.</li>
-                  <li>Set up Jenkins CI/CD and provisioned AWS with CloudFormation.</li>
+              <div class="stint">
+                <h4>Engineering Trainee / DevOps Intern</h4><p class="when">Sep 2022 – Jan 2023</p>
+                <ul class="pts">
+                  <li>Built a React website and a Flask and MongoDB CRUD app, and Dockerized it.</li>
+                  <li>Jenkins CI/CD and AWS CloudFormation.</li>
                   <li>Cut AWS costs about 20% by monitoring usage and right-sizing resources.</li>
                 </ul>
               </div>
             </div>
-          </div>
+          </article>
         </li>
       </ol>
     </div>
@@ -449,89 +554,88 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 
   <section class="section" id="skills" aria-labelledby="skills-title">
     <div class="wrap">
-      <div class="section-head">
-        <p class="label">Skills</p>
-        <h2 id="skills-title">Six layers, and where each one comes from</h2>
-        <p>Each line is tagged with the job or product it comes from.</p>
+      <div class="head reveal">
+        <p class="kicker">Skills</p>
+        <h2 id="skills-title">Six layers, <span class="cond">and where each comes from.</span></h2>
+        <p class="sub">Each line is tagged with the job or product behind it. The bar on each card is its span from the trace above.</p>
       </div>
       <div class="caps">
-        <article class="cap" id="frontend" style="--c:var(--fe);--s:0;--w:100">
+        <article class="cap glow reveal" id="frontend" style="--c:var(--fe);--s:0;--w:100;--d:0">
+          <i class="sb" aria-hidden="true"></i>
           <h3><i></i>Frontend &amp; product</h3>
-          <ul>
+          <ul class="pts">
             <li>A realtime chat web app with encrypted DMs and calls, plus a live dashboard for agent rooms. <span class="src">Ping</span></li>
             <li>A native macOS menu-bar app in SwiftUI, keyboard-first, with Touch ID. <span class="src">Klipvault</span></li>
             <li>My first job was building a React website. <span class="src">AtomBuild</span></li>
           </ul>
-          <p class="tools">React&nbsp;· Next.js&nbsp;· TypeScript&nbsp;· SwiftUI&nbsp;· HTML/CSS&nbsp;· Tailwind</p>
         </article>
-        <article class="cap" id="security" style="--c:var(--sec);--s:2.5;--w:5.8">
+        <article class="cap glow reveal" id="security" style="--c:var(--sec);--s:2.5;--w:5.8;--d:1">
+          <i class="sb" aria-hidden="true"></i>
           <h3><i></i>Security</h3>
-          <ul>
+          <ul class="pts">
             <li>Zero-trust access for hundreds of internal tools, and org-wide code and secret scanning. <span class="src">CARS24</span></li>
             <li>WAF rule design and safe rollout at the edge. <span class="src">CARS24</span></li>
             <li>Encryption at rest and secret detection built into a consumer app. <span class="src">Klipvault</span></li>
           </ul>
-          <p class="tools">Cloudflare&nbsp;WAF&nbsp;&amp;&nbsp;Zero&nbsp;Trust&nbsp;· IAM&nbsp;· Semgrep&nbsp;· Trivy&nbsp;· TruffleHog&nbsp;· Kubescape&nbsp;· GuardDuty&nbsp;· Wazuh</p>
         </article>
-        <article class="cap" id="devops" style="--c:var(--ops);--s:9.2;--w:74">
+        <article class="cap glow reveal" id="devops" style="--c:var(--ops);--s:9.2;--w:74;--d:2">
+          <i class="sb" aria-hidden="true"></i>
           <h3><i></i>DevOps &amp; cloud</h3>
-          <ul>
+          <ul class="pts">
             <li>Terraform, Terragrunt, Helm and Argo CD for streaming infrastructure on AWS and Azure. <span class="src">SonyLIV</span></li>
             <li>CI/CD in Jenkins, GitHub Actions and Azure DevOps, with security gates. <span class="src">AtomBuild</span></li>
             <li>Cut AWS costs about 20% by right-sizing resources. <span class="src">AtomBuild</span></li>
           </ul>
-          <p class="tools">AWS&nbsp;· Azure&nbsp;· GCP&nbsp;· Cloudflare&nbsp;· Terraform&nbsp;· Kubernetes&nbsp;· Helm&nbsp;· Argo&nbsp;CD&nbsp;· Docker&nbsp;· GitHub&nbsp;Actions&nbsp;· Jenkins</p>
         </article>
-        <article class="cap" id="backend" style="--c:var(--be);--s:11.7;--w:67.5">
+        <article class="cap glow reveal" id="backend" style="--c:var(--be);--s:11.7;--w:67.5;--d:0">
+          <i class="sb" aria-hidden="true"></i>
           <h3><i></i>Backend &amp; APIs</h3>
-          <ul>
+          <ul class="pts">
             <li>Realtime delivery, a per-room webhook API, and an MCP server that Claude Code, Codex and Cursor connect to. <span class="src">Ping</span></li>
             <li>A Flask backend with Google sign-in, Razorpay billing and Postgres or SQLite. <span class="src">Resume Tailor</span></li>
             <li>A serverless ETL and REST API on Cloudflare Workers, D1 and R2. <span class="src">CARS24</span></li>
           </ul>
-          <p class="tools">Node.js&nbsp;· Python&nbsp;· Flask&nbsp;· PostgreSQL&nbsp;· MongoDB&nbsp;· Redis&nbsp;· Kafka&nbsp;· Supabase&nbsp;· WebSockets</p>
         </article>
-        <article class="cap" id="ai-eng" style="--c:var(--ai);--s:29;--w:33">
+        <article class="cap glow reveal" id="ai-eng" style="--c:var(--ai);--s:29;--w:33;--d:1">
+          <i class="sb" aria-hidden="true"></i>
           <h3><i></i>AI &amp; agents</h3>
-          <ul>
+          <ul class="pts">
             <li>Rooms where AI agents from different vendors work together over MCP, shipped as a Claude Code plugin. <span class="src">Ping</span></li>
-            <li>A writer and screener LLM loop, scored requirement by requirement and built never to invent experience. <span class="src">Resume Tailor</span></li>
-            <li>Guardrails on the company LLM gateway, and a platform that tracks AI adoption across teams. <span class="src">CARS24</span></li>
-            <li>On-device speech to text, LLM tool calls, and AppleScript actions. <span class="src">Hey Buddy</span></li>
+            <li>A writer and screener LLM loop, built never to invent experience. <span class="src">Resume Tailor</span></li>
+            <li>Guardrails on the company LLM gateway, and AI adoption tracking across teams. <span class="src">CARS24</span></li>
+            <li>On-device speech to text, LLM tool calls and AppleScript actions. <span class="src">Hey Buddy</span></li>
           </ul>
-          <p class="tools">OpenAI&nbsp;· Anthropic&nbsp;· MCP&nbsp;· Claude&nbsp;Code&nbsp;· Codex&nbsp;· Cursor&nbsp;· Whisper&nbsp;· guardrails</p>
         </article>
-        <article class="cap" id="sre" style="--c:var(--sre);--s:83;--w:6">
+        <article class="cap glow reveal" id="sre" style="--c:var(--sre);--s:83;--w:6;--d:2">
+          <i class="sb" aria-hidden="true"></i>
           <h3><i></i>SRE &amp; reliability</h3>
-          <ul>
-            <li>Dashboards and alerting in Grafana, VictoriaMetrics, Datadog and Coralogix. <span class="src">SonyLIV · Atomhub</span></li>
-            <li>Incident response with playbooks and root-cause reviews. <span class="src">AtomBuild · CARS24</span></li>
+          <ul class="pts">
+            <li>Dashboards and alerting in Grafana, VictoriaMetrics, Datadog and Coralogix. <span class="src">SonyLIV</span> <span class="src">Atomhub</span></li>
+            <li>Incident response with playbooks and root-cause reviews. <span class="src">AtomBuild</span> <span class="src">CARS24</span></li>
             <li>Edge-native uptime health checks with Slack alerting. <span class="src">CARS24</span></li>
           </ul>
-          <p class="tools">Grafana&nbsp;· VictoriaMetrics&nbsp;· Datadog&nbsp;· Coralogix&nbsp;· Kafka&nbsp;· Redis&nbsp;· incident&nbsp;response&nbsp;· RCA</p>
         </article>
       </div>
     </div>
   </section>
 
   <section class="section contact" id="contact" aria-labelledby="contact-title">
-    <div class="wrap">
-      <p class="label">Contact</p>
-      <h2 id="contact-title">Building something? Tell me about it.</h2>
-      <div class="contact-body">
-        <p>I’m looking for a founding or early engineering role where I’d own the product along with its infrastructure and security from day one. Email is the fastest way to reach me.</p>
-        <div class="email">
-          <a id="email" href="mailto:r0wh4n8750@gmail.com?subject=Founding%20engineer%20role">r0wh4n8750@gmail.com</a>
-          <button class="btn small" id="copy-email" type="button">Copy</button>
-          <span class="sr-only" id="copy-status" role="status"></span>
-        </div>
-        <p class="elsewhere">
-          <a href="https://www.linkedin.com/in/r0wh4n/" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
-          <a href="https://github.com/r0wh4n" target="_blank" rel="noopener">GitHub<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
-          <a href="https://x.com/R0wh4n" target="_blank" rel="noopener">X<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
-          <a href="Resume.pdf" target="_blank" rel="noopener">Résumé (PDF)<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
-        </p>
+    <div class="aurora" aria-hidden="true"><i></i><i></i></div>
+    <div class="wrap contact-in">
+      <p class="kicker reveal">Contact</p>
+      <h2 id="contact-title" class="reveal">Building something? <span class="cond grad">Let’s talk.</span></h2>
+      <p class="reveal">I’m looking for a founding or early engineering role where I’d own the product along with its infrastructure and security from day one. Email is the fastest way to reach me.</p>
+      <div class="email reveal">
+        <a id="email" href="mailto:r0wh4n8750@gmail.com?subject=Founding%20engineer%20role">r0wh4n8750@gmail.com</a>
+        <button class="btn small" id="copy-email" type="button">Copy</button>
+        <span class="sr-only" id="copy-status" role="status"></span>
       </div>
+      <p class="social reveal">
+        <a class="btn" href="https://www.linkedin.com/in/r0wh4n/" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
+        <a class="btn" href="https://github.com/r0wh4n" target="_blank" rel="noopener">GitHub<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
+        <a class="btn" href="https://x.com/R0wh4n" target="_blank" rel="noopener">X<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
+        <a class="btn" href="Resume.pdf" target="_blank" rel="noopener">Résumé PDF<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
+      </p>
     </div>
   </section>
 </main>
@@ -540,10 +644,17 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <div class="wrap">
     <span>© 2026 Rohan Pandey</span>
     <span>Plain HTML. No framework, no trackers.</span>
+    <a href="#top">Back to top ↑</a>
   </div>
 </footer>
 
 <script>
+(() => {
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const css = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+
+  // copy email (works without the rest)
   const copyBtn = document.getElementById('copy-email');
   copyBtn.addEventListener('click', async () => {
     const email = document.getElementById('email');
@@ -560,6 +671,157 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     }
     setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
   });
+
+  if (!('IntersectionObserver' in window)) return; // ponytail: old browsers get the static page
+
+  // seamless marquee: duplicate each row once
+  document.querySelectorAll('.mq').forEach((row) => { row.innerHTML += row.innerHTML; });
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.reveal, .plan, .cap').forEach((el) => io.observe(el));
+  root.classList.add('js');
+
+  // cursor spotlight on cards and hero
+  document.addEventListener('pointermove', (e) => {
+    const card = e.target.closest && e.target.closest('.glow');
+    if (card) {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }
+  }, { passive: true });
+  const hero = document.querySelector('.hero');
+  hero.addEventListener('pointermove', (e) => {
+    const r = hero.getBoundingClientRect();
+    hero.style.setProperty('--hx', (e.clientX - r.left) + 'px');
+    hero.style.setProperty('--hy', (e.clientY - r.top) + 'px');
+  }, { passive: true });
+
+  // scroll: progress bar, header state, experience timeline
+  const bar = document.querySelector('.bar');
+  const prog = document.querySelector('.progress i');
+  const tl = document.querySelector('.tl');
+  const items = [...document.querySelectorAll('.tl-item')];
+  let ticking = false;
+  const onScroll = () => {
+    ticking = false;
+    const max = root.scrollHeight - innerHeight;
+    prog.style.transform = 'scaleX(' + (max > 0 ? scrollY / max : 0) + ')';
+    bar.classList.toggle('scrolled', scrollY > 8);
+    const line = innerHeight * .65;
+    const r = tl.getBoundingClientRect();
+    tl.style.setProperty('--p', Math.min(1, Math.max(0, (line - r.top) / r.height)).toFixed(3));
+    items.forEach((it) => it.classList.toggle('lit', it.getBoundingClientRect().top + 32 < line));
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  addEventListener('resize', onScroll);
+  onScroll();
+
+  // active nav link
+  const links = new Map([...document.querySelectorAll('.nav a')].map((a) => [a.hash.slice(1), a]));
+  const nav = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    links.forEach((a) => a.classList.remove('active'));
+    links.get(e.target.id)?.classList.add('active');
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  links.forEach((_, id) => { const s = document.getElementById(id); if (s) nav.observe(s); });
+
+  if (reduce) return;
+
+  // whoami typewriter
+  const typed = document.querySelector('.typed');
+  const words = ['full-stack engineer', 'devops engineer', 'site reliability engineer', 'security engineer', 'ai engineer'];
+  let wi = 0, ci = words[0].length, deleting = true;
+  const type = () => {
+    if (deleting) {
+      ci--;
+      if (ci <= 0) { deleting = false; wi = (wi + 1) % words.length; }
+    } else {
+      ci++;
+      if (ci >= words[wi].length) { typed.textContent = words[wi]; deleting = true; return setTimeout(type, 1900); }
+    }
+    typed.textContent = words[wi].slice(0, ci);
+    setTimeout(type, deleting ? 28 : 60);
+  };
+  setTimeout(type, 2600);
+
+  // hero canvas: packets streaming along six layer lanes
+  const cv = document.querySelector('.lanes');
+  const ctx = cv.getContext('2d');
+  const cols = ['--fe', '--sec', '--ops', '--be', '--ai', '--sre'].map(css);
+  let W = 0, H = 0, packets = [], last = 0, looping = false, onscreen = true;
+  const spawn = (lane, x) => ({ lane, x: x ?? -Math.random() * W * .4, v: 60 + Math.random() * 170, len: 60 + Math.random() * 170 });
+  const size = () => {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    packets = [];
+    cols.forEach((_, lane) => { for (let k = 0; k < 3; k++) packets.push(spawn(lane, Math.random() * W)); });
+  };
+  const laneY = (i) => H * (.14 + i * .145);
+  const frame = (t) => {
+    if (!onscreen || document.hidden) { looping = false; last = 0; return; }
+    const dt = last ? Math.min((t - last) / 1000, .05) : 0;
+    last = t;
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineWidth = 1;
+    cols.forEach((c, i) => { ctx.globalAlpha = .1; ctx.strokeStyle = c; ctx.beginPath(); ctx.moveTo(0, laneY(i)); ctx.lineTo(W, laneY(i)); ctx.stroke(); });
+    ctx.globalAlpha = 1; ctx.lineWidth = 2;
+    packets.forEach((p, n) => {
+      p.x += p.v * dt;
+      if (p.x - p.len > W) packets[n] = p = spawn(p.lane);
+      const y = laneY(p.lane), c = cols[p.lane];
+      const g = ctx.createLinearGradient(p.x - p.len, 0, p.x, 0);
+      g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, c);
+      ctx.strokeStyle = g; ctx.beginPath(); ctx.moveTo(p.x - p.len, y); ctx.lineTo(p.x, y); ctx.stroke();
+      ctx.fillStyle = c; ctx.shadowColor = c; ctx.shadowBlur = 14;
+      ctx.beginPath(); ctx.arc(p.x, y, 2.5, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
+    });
+    requestAnimationFrame(frame);
+  };
+  const start = () => { if (!looping && onscreen && !document.hidden) { looping = true; requestAnimationFrame(frame); } };
+  size();
+  new ResizeObserver(size).observe(cv);
+  new IntersectionObserver(([e]) => { onscreen = e.isIntersecting; start(); }).observe(cv);
+  document.addEventListener('visibilitychange', start);
+
+  // live trace: replay a fresh trace every few seconds while visible
+  const fig = document.querySelector('.trace');
+  const rows = [...fig.querySelectorAll('.span')].map((li) => ({ bar: li.querySelector('.bar-s'), dur: li.querySelector('.dur'), s0: +li.dataset.s, w0: +li.dataset.w }));
+  const tid = fig.querySelector('.tid'), total = fig.querySelector('.total');
+  let visible = false, playing = false, due = true;
+  const play = () => {
+    playing = true; due = false;
+    const k = .8 + Math.random() * .2;
+    rows.forEach((r, i) => { r.s = r.s0 * k; r.w = i ? r.w0 * k * (.88 + Math.random() * .24) : 0; });
+    rows[0].w = Math.min(240, Math.max(...rows.slice(1).map((r) => r.s + r.w)) + 6);
+    const end = rows[0].w;
+    tid.textContent = 'trace ' + Math.random().toString(16).slice(2, 8);
+    fig.style.setProperty('--sw', 1);
+    const t0 = performance.now();
+    const step = (now) => {
+      const t = (now - t0) / 9; // 1 trace-ms = 9 real ms
+      rows.forEach((r) => {
+        const e = Math.max(0, Math.min(t - r.s, r.w));
+        r.bar.style.left = (r.s / 2.4) + '%';
+        r.bar.style.width = (e / 2.4) + '%';
+        r.dur.textContent = t < r.s ? '—' : Math.round(e) + ' ms';
+      });
+      fig.style.setProperty('--t', (Math.min(t, 240) / 2.4).toFixed(2));
+      total.textContent = Math.round(Math.min(t, end)) + ' ms';
+      if (t < end + 10) return requestAnimationFrame(step);
+      fig.style.setProperty('--sw', 0);
+      playing = false;
+      setTimeout(() => { due = true; if (visible && !document.hidden) play(); }, 4200);
+    };
+    requestAnimationFrame(step);
+  };
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && due && !playing) play(); }, { threshold: .3 }).observe(fig);
+})();
 </script>
 </body>
 </html>
