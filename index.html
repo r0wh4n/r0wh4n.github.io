@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Rohan Pandey</title>
+<meta name="description" content="Rohan Pandey builds products end to end: frontend, backend, AI, DevOps, SRE and security. Open to founding and early-stage roles.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rohan Pandey · Frontend to firewall">
+<meta property="og:description" content="One engineer for the whole stack: product, infrastructure, reliability and security, built with AI agents.">
+<meta property="og:url" content="https://r0wh4n.github.io/">
+<meta property="og:image" content="https://r0wh4n.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Frontend to firewall. One engineer. Rohan Pandey.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://r0wh4n.github.io/">
+<meta name="theme-color" content="#F2F4F5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0F14" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101720' stroke='%2397A3B2' stroke-width='1.5'/%3E%3Crect x='6' y='9' width='20' height='3' rx='1' fill='%233EC1CB'/%3E%3Crect x='9' y='15' width='14' height='3' rx='1' fill='%237197FF'/%3E%3Crect x='12' y='21' width='8' height='3' rx='1' fill='%23F06A5E'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,600..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one request trace read top to bottom. The hero is a span waterfall; each span links to the proof for that layer. Left-aligned on a 72rem column. */
+:root {
+  --paper: #F2F4F5; --panel: #FFFFFF; --ink: #101720; --muted: #4F5A68; --rule: #D5DBE0; --wash: #E6EBEE;
+  /* one hue per layer, shared by the trace and the skills section */
+  --fe: #09737D; --sec: #C0392B; --ops: #9A5D08; --be: #2E59D0; --ai: #7743C6; --sre: #23794A;
+  --f-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --col: 72rem; --gut: clamp(1rem, 4vw, 2.5rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0B0F14; --panel: #121820; --ink: #E6EBF1; --muted: #9AA6B5; --rule: #26303C; --wash: #18212B;
+    --fe: #3EC1CB; --sec: #F06A5E; --ops: #E6A23C; --be: #7197FF; --ai: #B28CF3; --sre: #5DC981;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0B0F14; --panel: #121820; --ink: #E6EBF1; --muted: #9AA6B5; --rule: #26303C; --wash: #18212B;
+  --fe: #3EC1CB; --sec: #F06A5E; --ops: #E6A23C; --be: #7197FF; --ai: #B28CF3; --sre: #5DC981;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1.0625rem/1.6 var(--f-body); }
+a { color: inherit; text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); text-underline-offset: .2em; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--be); outline-offset: 3px; border-radius: 3px; }
+h1, h2, h3, h4 { font-family: var(--f-display); text-wrap: balance; margin: 0; }
+p { margin: 0; text-wrap: pretty; }
+ul, ol { margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; display: block; }
+[id] { scroll-margin-top: 5rem; }
+.wrap { max-width: var(--col); margin-inline: auto; padding-inline: var(--gut); }
+.label { font: 500 .75rem/1.4 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.skip { position: absolute; left: -999px; top: .5rem; z-index: 20; background: var(--ink); color: var(--paper); padding: .6rem 1rem; border-radius: 6px; }
+.skip:focus { left: 1rem; }
+
+/* top bar */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+.bar .wrap { display: flex; align-items: center; gap: 1.5rem; padding-block: .6rem; }
+.brand { display: flex; align-items: center; gap: .6rem; min-height: 44px; font: 700 1rem/1 var(--f-display); font-stretch: 110%; text-decoration: none; }
+.brand svg { flex: none; }
+.nav { display: flex; gap: .4rem; margin-left: auto; font-size: .92rem; }
+.nav a { display: inline-flex; align-items: center; min-height: 44px; padding-inline: .5rem; text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--ink); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .7rem 1.1rem; border-radius: 6px; font: 500 .95rem/1 var(--f-body); text-decoration: none; border: 1px solid var(--rule); background: var(--panel); color: var(--ink); cursor: pointer; }
+.btn:hover { border-color: var(--muted); }
+.btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn.primary:hover { opacity: .88; }
+.btn.small { padding: .5rem .85rem; font-size: .88rem; }
+
+/* hero */
+.hero { padding-block: clamp(3rem, 7vw, 5.5rem) clamp(2.5rem, 5vw, 4rem); display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.75rem; }
+.hero-top { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+.hero h1 { font-size: clamp(2.6rem, 1.3rem + 5.4vw, 5.4rem); font-weight: 800; font-stretch: 116%; line-height: .96; letter-spacing: -.025em; }
+.hero h1 span { display: block; font-stretch: 75%; font-weight: 700; }
+.lede { font-size: clamp(1.1rem, 1rem + .4vw, 1.3rem); line-height: 1.55; max-width: 42rem; }
+.lede b { font-weight: 600; }
+.status { display: flex; align-items: baseline; gap: .6rem; font-size: .92rem; color: var(--muted); }
+.status::before { content: "200"; flex: none; color: var(--sre); font: 500 .8rem/1 var(--f-mono); }
+.ctas { display: flex; flex-wrap: wrap; gap: .75rem; }
+.proof { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem 2rem; }
+@media (max-width: 1000px) { .proof { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .proof { grid-template-columns: minmax(0, 1fr); } }
+.proof li { display: grid; gap: .35rem; align-content: start; padding-top: .9rem; border-top: 1px solid var(--rule); font-size: .95rem; color: var(--muted); }
+.proof b { font: 500 .78rem/1.4 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
+
+/* trace waterfall */
+.trace { margin: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; --tpl: minmax(0, 21rem) minmax(0, 1fr) 4.5rem; }
+.trace-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1.2rem; padding: .9rem 1.1rem; border-bottom: 1px solid var(--rule); font: 400 .82rem/1.4 var(--f-mono); color: var(--muted); }
+.trace-head strong { color: var(--ink); font-weight: 500; font-size: .9rem; }
+.trace-head .owner { margin-left: auto; }
+.trace-head .owner b { color: var(--ink); font-weight: 500; }
+.axis, .span a { display: grid; grid-template-columns: var(--tpl); gap: 1rem; padding-inline: 1.1rem; }
+.axis { padding-block: .6rem .2rem; font: 400 .72rem/1 var(--f-mono); color: var(--muted); }
+.ticks { grid-column: 2; position: relative; height: 1em; }
+.ticks span { position: absolute; left: calc(var(--at) * 1%); transform: translateX(-50%); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ticks span:first-child { transform: none; }
+.ticks span:last-child { transform: translateX(-100%); }
+.spans { list-style: none; padding-bottom: .5rem; }
+.span { transition: opacity .15s; }
+.spans:hover .span:not(:hover) { opacity: .45; }
+.span a { align-items: center; min-height: 44px; padding-block: .5rem; text-decoration: none; color: inherit; }
+.span a:hover, .span a:focus-visible { background: var(--wash); outline-offset: -2px; border-radius: 0; }
+.svc { display: flex; align-items: baseline; gap: .55rem; min-width: 0; padding-left: calc(var(--d) * .9rem); }
+.svc i { flex: none; width: 9px; height: 9px; border-radius: 2px; background: var(--c); transform: translateY(1px); }
+.svc b { font-weight: 600; font-size: .95rem; white-space: nowrap; }
+.svc em { font: normal 400 .78rem/1.3 var(--f-mono); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.track { position: relative; height: 22px; background-image: linear-gradient(to right, var(--rule) 1px, transparent 1px); background-size: 25% 100%; background-position: -1px 0; }
+.bar-s { position: absolute; top: 5px; bottom: 5px; left: calc(var(--s) * 1%); width: max(4px, calc(var(--w) * 1%)); background: var(--c); border-radius: 2px; transform-origin: left; animation: grow .7s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i) * 90ms + 150ms); }
+@keyframes grow { from { transform: scaleX(0); } }
+.dur { font: 400 .82rem/1 var(--f-mono); text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+.trace figcaption { padding: .8rem 1.1rem; border-top: 1px solid var(--rule); font-size: .88rem; color: var(--muted); }
+
+/* sections */
+.section { padding-block: clamp(3.5rem, 8vw, 6rem); border-top: 1px solid var(--rule); }
+.section-head { display: grid; gap: .8rem; margin-bottom: clamp(2rem, 5vw, 3.5rem); max-width: 46rem; }
+.section-head h2 { font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3rem); font-weight: 800; font-stretch: 112%; line-height: 1.02; letter-spacing: -.02em; }
+.section-head p:not(.label) { color: var(--muted); font-size: 1.08rem; }
+.tools { font: 400 .8rem/1.6 var(--f-mono); color: var(--muted); }
+
+/* projects */
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 1.25rem; }
+.proj { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: clamp(1.25rem, 3vw, 1.75rem); display: grid; gap: .9rem; align-content: start; min-width: 0; }
+.proj.feature { grid-column: 1 / -1; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1.5rem 2.5rem; }
+.proj-text, .proj-media { display: grid; gap: .9rem; align-content: start; min-width: 0; }
+.proj h3 { font-size: 1.5rem; font-weight: 800; font-stretch: 110%; letter-spacing: -.01em; }
+.proj.feature h3 { font-size: clamp(1.8rem, 1.3rem + 1.6vw, 2.4rem); }
+.kind { font-weight: 500; color: var(--ink); }
+.proj p:not([class]) { color: var(--muted); font-size: .98rem; }
+.links { display: flex; flex-wrap: wrap; gap: .2rem 1.2rem; font-size: .92rem; font-weight: 500; }
+.links a { display: inline-flex; align-items: center; min-height: 44px; }
+.private { color: var(--muted); font: 400 .8rem/1.4 var(--f-mono); }
+.shot { border: 1px solid var(--rule); border-radius: 8px; }
+.term { margin: 0; background: var(--wash); border-radius: 8px; padding: 1rem 1.1rem; font: 400 .85rem/1.75 var(--f-mono); overflow-x: auto; white-space: pre; }
+.term .c { color: var(--muted); }
+.term .p { color: var(--fe); user-select: none; }
+.feats { list-style: none; display: grid; gap: .45rem; font-size: .95rem; }
+.feats li { padding-left: 1rem; position: relative; }
+.feats li::before { content: "›"; position: absolute; left: 0; color: var(--muted); }
+.smaller { margin-top: 1.75rem; font-size: .95rem; color: var(--muted); max-width: 52rem; }
+.smaller b { color: var(--ink); font-weight: 600; }
+
+/* how I work */
+.ai-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 3rem; }
+.principles { display: grid; gap: 1.6rem; align-content: start; }
+.principles h3 { font-size: 1.15rem; font-weight: 700; font-stretch: 106%; margin-bottom: .35rem; }
+.principles p { color: var(--muted); max-width: 36rem; }
+.plan { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: clamp(1.25rem, 3vw, 1.75rem); align-self: start; }
+.plan ol { list-style: none; display: grid; gap: 1.1rem; margin-top: 1rem; }
+.plan li { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 1rem; }
+.plan .wk { font: 500 .78rem/1.5 var(--f-mono); color: var(--muted); padding-top: .15rem; text-transform: uppercase; letter-spacing: .05em; }
+.plan li p { color: var(--muted); font-size: .95rem; }
+.plan p b { color: var(--ink); font-weight: 600; }
+
+/* experience */
+.jobs { list-style: none; display: grid; }
+.job { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: .5rem 2.5rem; padding-block: 2rem; border-top: 1px solid var(--rule); }
+.job:first-child { border-top: 0; padding-top: 0; }
+.when { font: 400 .85rem/1.5 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; padding-top: .3rem; }
+.job h3 { font-size: 1.35rem; font-weight: 700; font-stretch: 108%; }
+.role { color: var(--muted); margin-top: .15rem; }
+.job ul { margin-top: .8rem; display: grid; gap: .5rem; padding-left: 1.1rem; font-size: .98rem; max-width: 46rem; }
+.job ul { list-style: square; }
+.job li::marker { color: var(--muted); }
+.subs { display: grid; gap: 1.6rem; margin-top: 1.2rem; }
+.sub h4 { font: 600 1rem/1.4 var(--f-body); }
+.sub h4 span { font: 400 .82rem/1.4 var(--f-mono); color: var(--muted); margin-left: .5rem; white-space: nowrap; }
+.sub ul { margin-top: .5rem; }
+
+/* skills */
+.caps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 3rem 2.5rem; }
+.cap { display: grid; gap: .9rem; align-content: start; padding-top: 1.3rem; min-width: 0;
+  background: linear-gradient(to right, transparent calc(var(--s) * 1%), var(--c) 0 calc((var(--s) + var(--w)) * 1%), transparent 0) 0 0 / 100% 4px no-repeat,
+    linear-gradient(var(--rule), var(--rule)) 0 1.5px / 100% 1px no-repeat; }
+.cap h3 { display: flex; align-items: center; gap: .6rem; font-size: 1.3rem; font-weight: 700; font-stretch: 108%; }
+.cap h3 i { width: 12px; height: 12px; border-radius: 3px; background: var(--c); flex: none; }
+.cap ul { list-style: none; display: grid; gap: .6rem; font-size: .97rem; }
+.cap li { padding-left: 1rem; position: relative; }
+.cap li::before { content: ""; position: absolute; left: 0; top: .68em; width: 5px; height: 5px; border-radius: 1px; background: var(--c); }
+.src { font: 400 .75rem/1 var(--f-mono); color: var(--muted); white-space: nowrap; }
+.cap:target h3 { text-decoration: underline 2px var(--c); text-underline-offset: .3em; }
+
+/* contact */
+.contact h2 { font-size: clamp(2.2rem, 1.2rem + 4vw, 4.2rem); font-weight: 800; font-stretch: 116%; line-height: .98; letter-spacing: -.025em; max-width: 16ch; margin-top: .8rem; }
+.contact-body { display: grid; gap: 1.6rem; margin-top: 1.5rem; }
+.contact-body > p { color: var(--muted); max-width: 40rem; font-size: 1.1rem; }
+.email { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
+.email a { font: 500 clamp(1.15rem, 1rem + 1.2vw, 1.7rem)/1.2 var(--f-mono); text-decoration: none; border-bottom: 2px solid var(--be); overflow-wrap: anywhere; }
+.elsewhere { display: flex; flex-wrap: wrap; gap: .2rem 1.6rem; font-weight: 500; }
+.elsewhere a { display: inline-flex; align-items: center; min-height: 44px; }
+footer { border-top: 1px solid var(--rule); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; padding-block: 1.6rem; font: 400 .8rem/1.5 var(--f-mono); color: var(--muted); }
+
+@media (max-width: 760px) {
+  .nav a:not(.keep) { display: none; }
+  .trace { --tpl: minmax(0, 1fr) auto; }
+  .ticks, .track { grid-column: 1 / -1; }
+  .span a { row-gap: .35rem; }
+  .svc { grid-row: 1; }
+  .dur { grid-row: 1; grid-column: 2; }
+  .trace-head .owner { margin-left: 0; }
+  .svc { flex-wrap: wrap; row-gap: .1rem; }
+  .svc em { flex-basis: 100%; padding-left: calc(9px + .55rem); white-space: normal; }
+  .dur { align-self: start; padding-top: .2rem; }
+  .term { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .job { grid-template-columns: 1fr; }
+  .when { padding-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .bar-s { animation: none; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Rohan Pandey, back to top">
+      <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="var(--ink)"/><rect x="6" y="9" width="20" height="3" rx="1" fill="var(--fe)"/><rect x="9" y="15" width="14" height="3" rx="1" fill="var(--be)"/><rect x="12" y="21" width="8" height="3" rx="1" fill="var(--sec)"/></svg>
+      Rohan Pandey
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#projects">Projects</a>
+      <a href="#how">How I work</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a class="keep" href="#contact">Contact</a>
+    </nav>
+    <a class="btn small" href="Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="wrap hero" aria-labelledby="hero-title">
+    <div class="hero-top">
+      <p class="label">Founding / early-stage engineer · Delhi, remote</p>
+      <h1 id="hero-title">Frontend to firewall. <span>One engineer.</span></h1>
+      <p class="lede">I’m Rohan. Since 2022 I’ve been paid to keep production up and locked down: AWS and Kubernetes for <b>SonyLIV</b>’s streaming platform, and now security engineering at <b>CARS24</b>. Outside work I design, build and ship whole products on my own, like <b>Ping</b>, live at theping.chat. AI agents write much of the first draft and I review what ships. That’s how one person covers the whole stack.</p>
+      <p class="status">Open to founding and early-stage roles · remote, US-hours friendly</p>
+      <div class="ctas">
+        <a class="btn primary" href="mailto:r0wh4n8750@gmail.com?subject=Founding%20engineer%20role">Email me</a>
+        <a class="btn" href="#projects">See what I’ve shipped</a>
+      </div>
+    </div>
+
+
+    <figure class="trace" aria-labelledby="trace-cap">
+      <div class="trace-head">
+        <strong>GET /checkout</strong>
+        <span>illustrative trace · 6 layers · 240 ms</span>
+        <span class="owner">owner of every span: <b>rohan</b></span>
+      </div>
+      <div class="axis" aria-hidden="true">
+        <div class="ticks"><span style="--at:0">0</span><span style="--at:25">60</span><span style="--at:50">120</span><span style="--at:75">180</span><span style="--at:100">240 ms</span></div>
+      </div>
+      <ol class="spans">
+        <li class="span" style="--c:var(--fe);--s:0;--w:100;--d:0;--i:0"><a href="#frontend"><span class="svc"><i></i><b>Frontend</b><em>browser · render /checkout</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">240 ms</span></a></li>
+        <li class="span" style="--c:var(--sec);--s:2.5;--w:5.8;--d:1;--i:1"><a href="#security"><span class="svc"><i></i><b>Security</b><em>edge · WAF + zero-trust check</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">14 ms</span></a></li>
+        <li class="span" style="--c:var(--ops);--s:9.2;--w:74;--d:1;--i:2"><a href="#devops"><span class="svc"><i></i><b>DevOps</b><em>k8s · orders-svc on EKS</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">178 ms</span></a></li>
+        <li class="span" style="--c:var(--be);--s:11.7;--w:67.5;--d:2;--i:3"><a href="#backend"><span class="svc"><i></i><b>Backend</b><em>api · POST /orders</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">162 ms</span></a></li>
+        <li class="span" style="--c:var(--ai);--s:29;--w:33;--d:3;--i:4"><a href="#ai-eng"><span class="svc"><i></i><b>AI</b><em>llm · fraud check</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">80 ms</span></a></li>
+        <li class="span" style="--c:var(--sre);--s:83;--w:6;--d:1;--i:5"><a href="#sre"><span class="svc"><i></i><b>SRE</b><em>metrics · dashboard + alert</em></span><span class="track"><span class="bar-s"></span></span><span class="dur">14 ms</span></a></li>
+      </ol>
+      <figcaption id="trace-cap">An illustrative request through a typical product. I’ve built or run each of these layers in my work. Select one to see where.</figcaption>
+    </figure>
+    <ul class="proof" aria-label="Highlights">
+      <li><b>Ping · live</b>Chat app and AI agent rooms at theping.chat. Frontend, realtime backend and MCP server, built solo.</li>
+      <li><b>Resume Tailor · 2 days</b>A two-model LLM app with sign-in and billing, from first file to open-source release in about two days.</li>
+      <li><b>CARS24 · security</b>Moving hundreds of internal tools behind zero-trust access with one reusable policy.</li>
+      <li><b>SonyLIV · DevOps</b>Terraform, Kubernetes and GitOps for a large streaming platform on AWS.</li>
+    </ul>
+  </section>
+
+  <section class="section" id="projects" aria-labelledby="projects-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="label">Built on my own</p>
+        <h2 id="projects-title">Things I’ve designed, built and shipped myself</h2>
+        <p>Design, code, infrastructure and security on each were mine. Ping is live, Klipvault and Resume Tailor are open source, and two are private.</p>
+      </div>
+      <div class="projects">
+        <article class="proj feature">
+          <div class="proj-text">
+            <p class="label">Live · theping.chat · since Aug 2026</p>
+            <h3>Ping</h3>
+            <p><span class="kind">A shared room where AI coding agents work together.</span> Put Claude Code, Codex and Cursor in one room. They share project context, talk to each other, and see commits, pull requests and CI results in one timeline.</p>
+            <ul class="feats">
+              <li>Rooms are scoped to a directory, so one team’s room isn’t delivered into another team’s project.</li>
+              <li>A live view of every agent room over a single WebSocket.</li>
+              <li>One-command install as a Claude Code plugin.</li>
+              <li>Also a consumer chat app: @handle sign-up with no phone number, end-to-end encrypted DMs, groups and calls.</li>
+            </ul>
+            <p class="tools">Next.js&nbsp;· TypeScript&nbsp;· Supabase&nbsp;· WebSockets&nbsp;· MCP&nbsp;· E2E&nbsp;encryption</p>
+            <p class="links"><a href="https://theping.chat/agents" target="_blank" rel="noopener">theping.chat<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a><a href="https://github.com/r0wh4n/ping" target="_blank" rel="noopener">Source on GitHub<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
+          </div>
+          <div class="proj-media">
+            <img class="shot" src="ping.png" width="1280" height="660" loading="lazy" alt="Ping’s agents page: “One link. Your whole team’s AI in one room.” above a terminal showing an agent joining a room and replying.">
+<pre class="term"><span class="c"># connect Claude Code to a Ping room</span>
+<span class="p">› </span>/plugin marketplace add r0wh4n/ping
+<span class="p">› </span>/plugin install ping@ping
+<span class="p">› </span>/ping new backend team</pre>
+          </div>
+        </article>
+
+        <article class="proj">
+          <p class="label">Open source · macOS</p>
+          <h3>Klipvault</h3>
+          <p><span class="kind">An encrypted clipboard manager for the menu bar.</span> Every item is sealed with AES-256-GCM before it reaches disk. It flags 13 kinds of secrets, like API keys, JWTs and card numbers, and can lock any single clip behind Touch ID. No dependencies, and no network code at all. It went from v1.0 to v1.1 in a week.</p>
+          <pre class="term"><span class="p">$ </span>brew install --cask r0wh4n/tap/klipvault</pre>
+          <p class="tools">Swift&nbsp;· SwiftUI&nbsp;· CryptoKit&nbsp;· Homebrew</p>
+          <p class="links"><a href="https://github.com/r0wh4n/Klipvault" target="_blank" rel="noopener">GitHub<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
+        </article>
+
+        <article class="proj">
+          <p class="label">Open source · AI</p>
+          <h3>Resume Tailor</h3>
+          <p><span class="kind">Tailors a résumé to a job posting without inventing anything.</span> A writer model rewrites your real experience in the posting’s language. A screener model grades the result requirement by requirement, and the two loop until the score stops improving. Anything your résumé can’t back up comes back as a gap you can fill in yourself. Built in about two days.</p>
+          <p class="tools">Python&nbsp;· Flask&nbsp;· OpenAI&nbsp;· Anthropic&nbsp;· Postgres&nbsp;· Razorpay</p>
+          <p class="links"><a href="https://github.com/r0wh4n/resume-tailor" target="_blank" rel="noopener">GitHub<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
+        </article>
+
+        <article class="proj">
+          <p class="label">Security research · private</p>
+          <h3>Nebula</h3>
+          <p><span class="kind">Finds exploitable vulnerabilities in source code and proves them.</span> Nebula hunts for critical and high-severity bugs across web apps, CLIs, libraries and services. It only confirms a finding once it has a working proof of concept, which sharply cuts the false positives that pattern-matching SAST tools produce. Each finding comes CVSS-scored and ready to triage.</p>
+          <p class="tools">Static&nbsp;analysis&nbsp;· PoC&nbsp;generation&nbsp;· CVSS</p>
+          <p class="private">Used for authorized assessments</p>
+        </article>
+
+        <article class="proj">
+          <p class="label">Side project · Mac · private</p>
+          <h3>Hey Buddy</h3>
+          <p><span class="kind">A voice assistant that runs your Mac.</span> Say the wake word and it transcribes on-device with Whisper, plans with an LLM, and controls apps through AppleScript and in-browser JavaScript. It acts while you’re still talking, and asks for a spoken yes before anything risky.</p>
+          <p class="tools">Python&nbsp;· MLX&nbsp;Whisper&nbsp;· OpenAI&nbsp;tool&nbsp;calling&nbsp;· AppleScript</p>
+        </article>
+      </div>
+      <p class="smaller"><b>Smaller builds:</b> an AI reviewer that flags redundant and overly permissive Cloudflare WAF rules · a zero-dependency X posting CLI with hand-rolled OAuth 1.0a signing · a Chrome news extension · a desktop weather widget that changes the wallpaper to match the sky.</p>
+    </div>
+  </section>
+
+  <section class="section" id="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="label">How I work</p>
+        <h2 id="how-title">AI agents do much of the typing. I&nbsp;own what ships.</h2>
+        <p>For an early team, that means a working prototype in days, and infrastructure, monitoring and security handled by the same person who builds the product.</p>
+      </div>
+      <div class="ai-grid">
+        <div class="principles">
+          <div>
+            <h3>Several agents in parallel, one reviewer</h3>
+            <p>I run Claude Code, Codex and Cursor on separate tasks at the same time and review the diffs before they merge. Changes that touch production ship with tests and a rollback path.</p>
+          </div>
+          <div>
+            <h3>I build the tooling too</h3>
+            <p>Ping’s agent rooms exist because I wanted assistants from different vendors to share one context. Resume Tailor went from first file to open-source release in about two days.</p>
+          </div>
+          <div>
+            <h3>Speed with guardrails</h3>
+            <p>Secret scanning, least-privilege CI and branch protection are part of how I ship. At CARS24 I also added guardrails to the internal LLM gateway.</p>
+          </div>
+        </div>
+        <div class="plan">
+          <p class="label">If I join your team</p>
+          <ol>
+            <li><span class="wk">Week 1</span><p><b>Ship something real.</b> A fix or a feature in production is the fastest way I know to learn a codebase.</p></li>
+            <li><span class="wk">Weeks 2–3</span><p><b>Make releases routine.</b> CI/CD, infrastructure as code, preview environments and one-click rollback.</p></li>
+            <li><span class="wk">Week 4</span><p><b>Know when it breaks.</b> Dashboards, alerts that fire only for real problems, and uptime checks on every public endpoint.</p></li>
+            <li><span class="wk">Ongoing</span><p><b>A security baseline.</b> SSO, secret scanning, least-privilege access and zero trust for internal tools, sized to your stage.</p></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="experience" aria-labelledby="exp-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="label">Experience</p>
+        <h2 id="exp-title">Since 2022, from React to root cause</h2>
+      </div>
+      <ol class="jobs">
+        <li class="job">
+          <p class="when">Sep 2025 – now<br>Delhi</p>
+          <div>
+            <h3>CARS24</h3>
+            <p class="role">Security / DevSecOps Engineer</p>
+            <ul>
+              <li>Moving hundreds of internal tools behind zero-trust access in staged, reversible batches, using one reusable policy.</li>
+              <li>Designed a zero-trust access model that combines device management, device-posture checks, DLP and identity-aware access.</li>
+              <li>Deployed an in-house GitHub Advanced Security equivalent (Semgrep, Trivy, TruffleHog) with secret scanning, branch protection and least-privilege workflow permissions.</li>
+              <li>Built a platform that tracks AI tool adoption and spend across teams, on Cloudflare Workers, D1 and R2.</li>
+              <li>Led cloud incident response across AWS and GCP, and centralized detection and alerting in a SIEM.</li>
+              <li>Own WAF rule design and safe rollout, including catching a proposed global rule that would have broken production before it shipped.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="job">
+          <p class="when">Sep 2022 – Sep 2025<br>Remote</p>
+          <div>
+            <h3>AtomBuild</h3>
+            <p class="role">Consultancy · three years, from trainee to DevOps engineer on SonyLIV</p>
+            <div class="subs">
+              <div class="sub">
+                <h4>DevOps Engineer, SonyLIV <span>Sep 2024 – Sep 2025</span></h4>
+                <ul>
+                  <li>Ran AWS infrastructure (EC2, EKS, ECS, RDS, S3) for SonyLIV’s large-scale streaming workloads.</li>
+                  <li>Implemented infrastructure as code with Terraform and Terragrunt on AWS, and provisioned Azure with Terraform using remote state and per-environment modules.</li>
+                  <li>Deployed Kubernetes workloads with Helm and Argo CD (GitOps), and optimized Jenkins pipelines for faster, more reliable releases.</li>
+                  <li>Built observability in Grafana, VictoriaMetrics, Datadog and Coralogix, and supported Kafka and Redis event-driven services.</li>
+                </ul>
+              </div>
+              <div class="sub">
+                <h4>DevOps Engineer, Atomhub <span>Jan 2023 – Sep 2024</span></h4>
+                <ul>
+                  <li>Built Azure DevOps YAML pipelines deploying containers to AKS, and ran workloads on EKS and ECS.</li>
+                  <li>Automated provisioning and environment replication with Terraform.</li>
+                  <li>Set up centralized logging, metrics and alerting with Grafana, Datadog and Coralogix.</li>
+                </ul>
+              </div>
+              <div class="sub">
+                <h4>Across both DevOps roles <span>2023 – 2025</span></h4>
+                <ul>
+                  <li>Hardened Kubernetes with Trivy, Grype and Kubescape, RBAC, TLS and network policies.</li>
+                  <li>Added SAST, DAST, container and secret scanning to CI/CD, with gates that block vulnerable deploys.</li>
+                  <li>Ran GuardDuty, Security Hub and Wazuh for detection, and handled incidents with playbooks and root-cause reviews.</li>
+                </ul>
+              </div>
+              <div class="sub">
+                <h4>Engineering Trainee / DevOps Intern <span>Sep 2022 – Jan 2023</span></h4>
+                <ul>
+                  <li>Built a React website and a Flask and MongoDB CRUD app, and Dockerized it for deployment.</li>
+                  <li>Set up Jenkins CI/CD and provisioned AWS with CloudFormation.</li>
+                  <li>Cut AWS costs about 20% by monitoring usage and right-sizing resources.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="skills" aria-labelledby="skills-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="label">Skills</p>
+        <h2 id="skills-title">Six layers, and where each one comes from</h2>
+        <p>Each line is tagged with the job or product it comes from.</p>
+      </div>
+      <div class="caps">
+        <article class="cap" id="frontend" style="--c:var(--fe);--s:0;--w:100">
+          <h3><i></i>Frontend &amp; product</h3>
+          <ul>
+            <li>A realtime chat web app with encrypted DMs and calls, plus a live dashboard for agent rooms. <span class="src">Ping</span></li>
+            <li>A native macOS menu-bar app in SwiftUI, keyboard-first, with Touch ID. <span class="src">Klipvault</span></li>
+            <li>My first job was building a React website. <span class="src">AtomBuild</span></li>
+          </ul>
+          <p class="tools">React&nbsp;· Next.js&nbsp;· TypeScript&nbsp;· SwiftUI&nbsp;· HTML/CSS&nbsp;· Tailwind</p>
+        </article>
+        <article class="cap" id="security" style="--c:var(--sec);--s:2.5;--w:5.8">
+          <h3><i></i>Security</h3>
+          <ul>
+            <li>Zero-trust access for hundreds of internal tools, and org-wide code and secret scanning. <span class="src">CARS24</span></li>
+            <li>WAF rule design and safe rollout at the edge. <span class="src">CARS24</span></li>
+            <li>Encryption at rest and secret detection built into a consumer app. <span class="src">Klipvault</span></li>
+            <li>An engine that proves each vulnerability with a working proof of concept. <span class="src">Nebula</span></li>
+          </ul>
+          <p class="tools">Cloudflare&nbsp;WAF&nbsp;&amp;&nbsp;Zero&nbsp;Trust&nbsp;· IAM&nbsp;· Semgrep&nbsp;· Trivy&nbsp;· TruffleHog&nbsp;· Kubescape&nbsp;· GuardDuty&nbsp;· Wazuh</p>
+        </article>
+        <article class="cap" id="devops" style="--c:var(--ops);--s:9.2;--w:74">
+          <h3><i></i>DevOps &amp; cloud</h3>
+          <ul>
+            <li>Terraform, Terragrunt, Helm and Argo CD for streaming infrastructure on AWS and Azure. <span class="src">SonyLIV</span></li>
+            <li>CI/CD in Jenkins, GitHub Actions and Azure DevOps, with security gates. <span class="src">AtomBuild</span></li>
+            <li>Cut AWS costs about 20% by right-sizing resources. <span class="src">AtomBuild</span></li>
+          </ul>
+          <p class="tools">AWS&nbsp;· Azure&nbsp;· GCP&nbsp;· Cloudflare&nbsp;· Terraform&nbsp;· Kubernetes&nbsp;· Helm&nbsp;· Argo&nbsp;CD&nbsp;· Docker&nbsp;· GitHub&nbsp;Actions&nbsp;· Jenkins</p>
+        </article>
+        <article class="cap" id="backend" style="--c:var(--be);--s:11.7;--w:67.5">
+          <h3><i></i>Backend &amp; APIs</h3>
+          <ul>
+            <li>Realtime delivery, a per-room webhook API, and an MCP server that Claude Code, Codex and Cursor connect to. <span class="src">Ping</span></li>
+            <li>A Flask backend with Google sign-in, Razorpay billing and Postgres or SQLite. <span class="src">Resume Tailor</span></li>
+            <li>A serverless ETL and REST API on Cloudflare Workers, D1 and R2. <span class="src">CARS24</span></li>
+          </ul>
+          <p class="tools">Node.js&nbsp;· Python&nbsp;· Flask&nbsp;· PostgreSQL&nbsp;· MongoDB&nbsp;· Redis&nbsp;· Kafka&nbsp;· Supabase&nbsp;· WebSockets</p>
+        </article>
+        <article class="cap" id="ai-eng" style="--c:var(--ai);--s:29;--w:33">
+          <h3><i></i>AI &amp; agents</h3>
+          <ul>
+            <li>Rooms where AI agents from different vendors work together over MCP, shipped as a Claude Code plugin. <span class="src">Ping</span></li>
+            <li>A writer and screener LLM loop, scored requirement by requirement and built never to invent experience. <span class="src">Resume Tailor</span></li>
+            <li>Guardrails on the company LLM gateway, and a platform that tracks AI adoption across teams. <span class="src">CARS24</span></li>
+            <li>On-device speech to text, LLM tool calls, and AppleScript actions. <span class="src">Hey Buddy</span></li>
+          </ul>
+          <p class="tools">OpenAI&nbsp;· Anthropic&nbsp;· MCP&nbsp;· Claude&nbsp;Code&nbsp;· Codex&nbsp;· Cursor&nbsp;· Whisper&nbsp;· guardrails</p>
+        </article>
+        <article class="cap" id="sre" style="--c:var(--sre);--s:83;--w:6">
+          <h3><i></i>SRE &amp; reliability</h3>
+          <ul>
+            <li>Dashboards and alerting in Grafana, VictoriaMetrics, Datadog and Coralogix. <span class="src">SonyLIV · Atomhub</span></li>
+            <li>Incident response with playbooks and root-cause reviews. <span class="src">AtomBuild · CARS24</span></li>
+            <li>Edge-native uptime health checks with Slack alerting. <span class="src">CARS24</span></li>
+          </ul>
+          <p class="tools">Grafana&nbsp;· VictoriaMetrics&nbsp;· Datadog&nbsp;· Coralogix&nbsp;· Kafka&nbsp;· Redis&nbsp;· incident&nbsp;response&nbsp;· RCA</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <p class="label">Contact</p>
+      <h2 id="contact-title">Building something? Tell me about it.</h2>
+      <div class="contact-body">
+        <p>I’m looking for a founding or early engineering role where I’d own the product along with its infrastructure and security from day one. Email is the fastest way to reach me.</p>
+        <div class="email">
+          <a id="email" href="mailto:r0wh4n8750@gmail.com?subject=Founding%20engineer%20role">r0wh4n8750@gmail.com</a>
+          <button class="btn small" id="copy-email" type="button">Copy</button>
+          <span class="sr-only" id="copy-status" role="status"></span>
+        </div>
+        <p class="elsewhere">
+          <a href="https://www.linkedin.com/in/r0wh4n/" target="_blank" rel="noopener">LinkedIn<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
+          <a href="https://github.com/r0wh4n" target="_blank" rel="noopener">GitHub<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
+          <a href="https://x.com/R0wh4n" target="_blank" rel="noopener">X<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
+          <a href="Resume.pdf" target="_blank" rel="noopener">Résumé (PDF)<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
+        </p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Rohan Pandey</span>
+    <span>Plain HTML. No framework, no trackers.</span>
+  </div>
+</footer>
+
+<script>
+  const copyBtn = document.getElementById('copy-email');
+  copyBtn.addEventListener('click', async () => {
+    const email = document.getElementById('email');
+    try {
+      await navigator.clipboard.writeText(email.textContent);
+      copyBtn.textContent = 'Copied';
+      document.getElementById('copy-status').textContent = 'Email address copied';
+    } catch {
+      const range = document.createRange();
+      range.selectNodeContents(email);
+      getSelection().removeAllRanges();
+      getSelection().addRange(range);
+      copyBtn.textContent = 'Selected';
+    }
+    setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+  });
+</script>
+</body>
+</html>
