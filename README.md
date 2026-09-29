@@ -1,6 +1,6 @@
 # rohan pandey · portfolio
 
-Personal site: frontend, backend, AI, DevOps, SRE and security, one engineer.
+Personal site: hire one engineer, get the whole team. Frontend, backend, AI, DevOps, SRE and security.
 
 One static `index.html`, no build step, no framework, no trackers. Open it in a browser to preview.
 
