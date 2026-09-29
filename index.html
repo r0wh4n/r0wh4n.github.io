@@ -60,6 +60,7 @@ img { max-width: 100%; height: auto; display: block; }
 [id] { scroll-margin-top: 5rem; }
 .wrap { max-width: var(--col); margin-inline: auto; padding-inline: var(--gut); }
 .label { font: 500 .75rem/1.4 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.ext { margin-left: .3em; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .skip { position: absolute; left: -999px; top: .5rem; z-index: 20; background: var(--ink); color: var(--paper); padding: .6rem 1rem; border-radius: 6px; }
 .skip:focus { left: 1rem; }
@@ -129,7 +130,8 @@ img { max-width: 100%; height: auto; display: block; }
 .tools { font: 400 .8rem/1.6 var(--f-mono); color: var(--muted); }
 
 /* projects */
-.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 1.25rem; }
+.projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+@media (max-width: 1000px) { .projects { grid-template-columns: minmax(0, 1fr); } }
 .proj { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: clamp(1.25rem, 3vw, 1.75rem); display: grid; gap: .9rem; align-content: start; min-width: 0; }
 .proj.feature { grid-column: 1 / -1; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1.5rem 2.5rem; }
 .proj-text, .proj-media { display: grid; gap: .9rem; align-content: start; min-width: 0; }
@@ -141,7 +143,7 @@ img { max-width: 100%; height: auto; display: block; }
 .links a { display: inline-flex; align-items: center; min-height: 44px; }
 .private { color: var(--muted); font: 400 .8rem/1.4 var(--f-mono); }
 .shot { border: 1px solid var(--rule); border-radius: 8px; }
-.term { margin: 0; background: var(--wash); border-radius: 8px; padding: 1rem 1.1rem; font: 400 .85rem/1.75 var(--f-mono); overflow-x: auto; white-space: pre; }
+.term { margin: 0; background: var(--wash); border-radius: 8px; padding: 1rem 1.1rem; font: 400 .85rem/1.75 var(--f-mono); white-space: pre-wrap; overflow-wrap: anywhere; }
 .term .c { color: var(--muted); }
 .term .p { color: var(--fe); user-select: none; }
 .feats { list-style: none; display: grid; gap: .45rem; font-size: .95rem; }
@@ -212,7 +214,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .svc { flex-wrap: wrap; row-gap: .1rem; }
   .svc em { flex-basis: 100%; padding-left: calc(9px + .55rem); white-space: normal; }
   .dur { align-self: start; padding-top: .2rem; }
-  .term { white-space: pre-wrap; overflow-wrap: anywhere; }
   .job { grid-template-columns: 1fr; }
   .when { padding-top: 0; }
 }
@@ -288,7 +289,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <div class="section-head">
         <p class="label">Built on my own</p>
         <h2 id="projects-title">Things I’ve designed, built and shipped myself</h2>
-        <p>Design, code, infrastructure and security on each were mine. Ping is live, Klipvault and Resume Tailor are open source, and two are private.</p>
+        <p>Design, code, infrastructure and security on each were mine. Ping is live, Klipvault and Resume Tailor are open source, and Hey Buddy is private.</p>
       </div>
       <div class="projects">
         <article class="proj feature">
@@ -303,7 +304,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
               <li>Also a consumer chat app: @handle sign-up with no phone number, end-to-end encrypted DMs, groups and calls.</li>
             </ul>
             <p class="tools">Next.js&nbsp;· TypeScript&nbsp;· Supabase&nbsp;· WebSockets&nbsp;· MCP&nbsp;· E2E&nbsp;encryption</p>
-            <p class="links"><a href="https://theping.chat/agents" target="_blank" rel="noopener">theping.chat<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a><a href="https://github.com/r0wh4n/ping" target="_blank" rel="noopener">Source on GitHub<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
+            <p class="links"><a href="https://theping.chat/agents" target="_blank" rel="noopener">theping.chat<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a><a href="https://github.com/r0wh4n/ping" target="_blank" rel="noopener">Source on GitHub<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
           </div>
           <div class="proj-media">
             <img class="shot" src="ping.png" width="1280" height="660" loading="lazy" alt="Ping’s agents page: “One link. Your whole team’s AI in one room.” above a terminal showing an agent joining a room and replying.">
@@ -320,7 +321,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <p><span class="kind">An encrypted clipboard manager for the menu bar.</span> Every item is sealed with AES-256-GCM before it reaches disk. It flags 13 kinds of secrets, like API keys, JWTs and card numbers, and can lock any single clip behind Touch ID. No dependencies, and no network code at all. It went from v1.0 to v1.1 in a week.</p>
           <pre class="term"><span class="p">$ </span>brew install --cask r0wh4n/tap/klipvault</pre>
           <p class="tools">Swift&nbsp;· SwiftUI&nbsp;· CryptoKit&nbsp;· Homebrew</p>
-          <p class="links"><a href="https://github.com/r0wh4n/Klipvault" target="_blank" rel="noopener">GitHub<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
+          <p class="links"><a href="https://github.com/r0wh4n/Klipvault" target="_blank" rel="noopener">GitHub<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
         </article>
 
         <article class="proj">
@@ -328,16 +329,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <h3>Resume Tailor</h3>
           <p><span class="kind">Tailors a résumé to a job posting without inventing anything.</span> A writer model rewrites your real experience in the posting’s language. A screener model grades the result requirement by requirement, and the two loop until the score stops improving. Anything your résumé can’t back up comes back as a gap you can fill in yourself. Built in about two days.</p>
           <p class="tools">Python&nbsp;· Flask&nbsp;· OpenAI&nbsp;· Anthropic&nbsp;· Postgres&nbsp;· Razorpay</p>
-          <p class="links"><a href="https://github.com/r0wh4n/resume-tailor" target="_blank" rel="noopener">GitHub<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
+          <p class="links"><a href="https://github.com/r0wh4n/resume-tailor" target="_blank" rel="noopener">GitHub<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a></p>
         </article>
 
-        <article class="proj">
-          <p class="label">Security research · private</p>
-          <h3>Nebula</h3>
-          <p><span class="kind">Finds exploitable vulnerabilities in source code and proves them.</span> Nebula hunts for critical and high-severity bugs across web apps, CLIs, libraries and services. It only confirms a finding once it has a working proof of concept, which sharply cuts the false positives that pattern-matching SAST tools produce. Each finding comes CVSS-scored and ready to triage.</p>
-          <p class="tools">Static&nbsp;analysis&nbsp;· PoC&nbsp;generation&nbsp;· CVSS</p>
-          <p class="private">Used for authorized assessments</p>
-        </article>
 
         <article class="proj">
           <p class="label">Side project · Mac · private</p>
@@ -476,7 +470,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <li>Zero-trust access for hundreds of internal tools, and org-wide code and secret scanning. <span class="src">CARS24</span></li>
             <li>WAF rule design and safe rollout at the edge. <span class="src">CARS24</span></li>
             <li>Encryption at rest and secret detection built into a consumer app. <span class="src">Klipvault</span></li>
-            <li>An engine that proves each vulnerability with a working proof of concept. <span class="src">Nebula</span></li>
           </ul>
           <p class="tools">Cloudflare&nbsp;WAF&nbsp;&amp;&nbsp;Zero&nbsp;Trust&nbsp;· IAM&nbsp;· Semgrep&nbsp;· Trivy&nbsp;· TruffleHog&nbsp;· Kubescape&nbsp;· GuardDuty&nbsp;· Wazuh</p>
         </article>
@@ -533,10 +526,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
           <span class="sr-only" id="copy-status" role="status"></span>
         </div>
         <p class="elsewhere">
-          <a href="https://www.linkedin.com/in/r0wh4n/" target="_blank" rel="noopener">LinkedIn<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
-          <a href="https://github.com/r0wh4n" target="_blank" rel="noopener">GitHub<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
-          <a href="https://x.com/R0wh4n" target="_blank" rel="noopener">X<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
-          <a href="Resume.pdf" target="_blank" rel="noopener">Résumé (PDF)<span aria-hidden="true"> ↗</span><span class="sr-only"> (opens in new tab)</span></a>
+          <a href="https://www.linkedin.com/in/r0wh4n/" target="_blank" rel="noopener">LinkedIn<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
+          <a href="https://github.com/r0wh4n" target="_blank" rel="noopener">GitHub<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
+          <a href="https://x.com/R0wh4n" target="_blank" rel="noopener">X<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
+          <a href="Resume.pdf" target="_blank" rel="noopener">Résumé (PDF)<span class="ext" aria-hidden="true">↗</span><span class="sr-only"> (opens in new tab)</span></a>
         </p>
       </div>
     </div>
